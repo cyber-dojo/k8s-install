@@ -3,15 +3,14 @@ helm_upgrade_probe_no_prometheus_no()
 {
   local -r namespace="${1}"
   local -r repo="${2}"
-  local -r helm_repo="${3}"
-  local -r image="${4}"
-  local -r tag="${5}"
-  local -r port="${6}"
-  local -r general_values="${7}"
-  if [ -z "${8:-}" ]; then
+  local -r image="${3}"
+  local -r tag="${4}"
+  local -r port="${5}"
+  local -r general_values="${6}"
+  if [ -z "${7:-}" ]; then
     local -r specific_values=""
   else
-    local -r specific_values="--values ${8}"
+    local -r specific_values="--values ${7}"
   fi
 
   helm upgrade \
@@ -23,5 +22,6 @@ helm_upgrade_probe_no_prometheus_no()
     --values ${general_values} \
     ${specific_values} \
     ${namespace}-${repo} \
-    ${helm_repo}
+    praqma/cyber-dojo-service \
+    --version 0.2.5
 }
