@@ -5,10 +5,10 @@ In time these should be reified into one version.
 
 
 helm_upgrade_probe_yes_prometheus_no.sh
-    saver
+    saver (USES)
 
 helm_upgrade_probe_no_prometheus_no.sh
-    web
+    web (USES)
 
 help_upgrade_probe_yes_prometheus_yes.sh
     avatars (USES)
