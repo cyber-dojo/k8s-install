@@ -46,7 +46,7 @@ helm_upgrade()
   if [ "${K8S_SET_PROMETHEUS:-x}" == "false" ]; then
     local -r k8s_prometheus=""
   else
-    local dq='"'
+    local dqt='"'
     local -r k8s_prometheus="--set-string service.annotations.${dqt}prometheus\.io/port${dqt}=${port}"
   fi
 
