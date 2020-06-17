@@ -1,5 +1,6 @@
 
 NAMESPACE="${1:-prod}"
+SERVICE="${2:-runner}"
 
 function nodes()
 {
@@ -8,7 +9,7 @@ function nodes()
 
 for node in $(nodes)
 do
-  line=$(kubectl describe node ${node} | grep "${NAMESPACE}" | grep runner)
+  line=$(kubectl describe node ${node} | grep "${NAMESPACE}" | grep "${SERVICE}")
   pod=$(echo ${line} | cut -d' ' -f2)
   echo
   echo node=${node}
