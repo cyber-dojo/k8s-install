@@ -40,13 +40,13 @@ helm_upgrade()
     local -r specific_values="--values ${7}"
   fi
 
-  if [ "${K8S_SET_PROMETHEUS}" == "false" ]; then
+  if [ "${K8S_SET_PROMETHEUS:-}" == "false" ]; then
     local -r k8s_prometheus=""
   else
     local -r k8s_prometheus="--set-string service.annotations.\"prometheus\.io/port\"=${port}"
   fi
 
-  if [ "${K8S_SET_PROBES}" == "false" ]; then
+  if [ "${K8S_SET_PROBES:-}" == "false" ]; then
     local -r k8s_liveness_probe=""
     local -r k8s_readiness_probe=""
   else
