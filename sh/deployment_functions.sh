@@ -26,6 +26,51 @@ helm_init()
 }
 
 #- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+helm_upgrade()
+{
+  local -r namespace="${1}"
+  local -r repo="${2}"
+  local -r image="${3}"
+  local -r tag="${4}"
+  local -r port="${5}"
+  local -r general_values="${6}"
+  if [ -z "${7:-}" ]; then
+    local -r specific_values=""
+  else
+    local -r specific_values="--values ${7}"
+  fi
+
+  if [ "${K8S_SET_PROMETHEUS}" == "false" ]; then
+    local -r k8s_prometheus=""
+  else
+    local -r k8s_prometheus="--set-string service.annotations.\"prometheus\.io/port\"=${port}"
+  fi
+
+  if [ "${K8S_SET_PROBE}" == "false" ]; then
+    local -r k8s_liveness_probe=""
+    local -r k8s_readiness_probe=""
+  else
+    local -r k8s_liveness_probe="--set containers[0].livenessProbe.port=${port}"
+    local -r k8s_readiness_probe="--set containers[0].readinessProbe.port=${port}"
+  fi
+
+  helm upgrade \
+    --install \
+    --namespace=${namespace} \
+    --set-string containers[0].image=${image} \
+    --set-string containers[0].tag=${tag} \
+    --set service.port=${port} \
+    "${k8s_prometheus}" \
+    "${k8s_liveness_probe}" \
+    "${k8s_readiness_probe}" \
+    --values ${general_values} \
+    ${specific_values} \
+    ${namespace}-${repo} \
+    ${HELM_CHART_REPO} \
+    --version ${HELM_CHART_VERSION}
+}
+
+#- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 helm_upgrade_probe_no_prometheus_no()
 {
   local -r namespace="${1}"
