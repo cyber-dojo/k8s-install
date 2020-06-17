@@ -1,3 +1,5 @@
+HELM_CHART_REPO=praqma/cyber-dojo-service
+HELM_CHART_VERSION=0.2.5
 
 #- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 gcloud_init()
@@ -26,7 +28,7 @@ helm_init()
 #- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 helm_chart_version()
 {
-  echo 0.2.5
+  echo ${HELM_CHART_VERSION}
 }
 
 #- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -53,8 +55,8 @@ helm_upgrade_probe_no_prometheus_no()
     --values ${general_values} \
     ${specific_values} \
     ${namespace}-${repo} \
-    praqma/cyber-dojo-service \
-    --version "$(helm_chart_version)"
+    ${HELM_CHART_REPO} \
+    --version ${HELM_CHART_VERSION}
 }
 
 #- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -78,8 +80,8 @@ helm_upgrade_probe_yes_prometheus_no()
     --values ${general_values} \
     --values ${specific_values} \
     ${namespace}-${repo} \
-    praqma/cyber-dojo-service \
-    --version "$(helm_chart_version)"
+    ${HELM_CHART_REPO} \
+    --version ${HELM_CHART_VERSION}
 }
 
 #- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -109,6 +111,6 @@ helm_upgrade_probe_yes_prometheus_yes()
     --values ${general_values} \
     ${specific_values} \
     ${namespace}-${repo} \
-    praqma/cyber-dojo-service \
-    --version "$(helm_chart_version)"
+    ${HELM_CHART_REPO} \
+    --version ${HELM_CHART_VERSION}
 }
