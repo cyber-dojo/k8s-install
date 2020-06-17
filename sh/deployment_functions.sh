@@ -46,8 +46,8 @@ helm_upgrade()
   if [ "${K8S_SET_PROMETHEUS:-x}" == "false" ]; then
     local -r k8s_prometheus=""
   else
-    # embed double quote inside the value by catenating adjacent strings
-    local -r k8s_prometheus='--set-string service.annotations."''prometheus\.io/port"'"=${port}"
+    local dq='"'
+    local -r k8s_prometheus="--set-string service.annotations.${dqt}prometheus\.io/port${dqt}=${port}"
   fi
 
   if [ "${K8S_SET_PROBES:-x}" == "false" ]; then
