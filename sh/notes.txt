@@ -1,5 +1,5 @@
 
-There are currently 3 slightly different versions of the helm_upgrade() bash function.
+There are currently 3 slightly different versions of the helm_upgrade....() bash function.
 Here are their names and which services use them.
 In time these should be reified into one version.
 

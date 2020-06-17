@@ -26,12 +26,6 @@ helm_init()
 }
 
 #- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-helm_chart_version()
-{
-  echo ${HELM_CHART_VERSION}
-}
-
-#- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 helm_upgrade_probe_no_prometheus_no()
 {
   local -r namespace="${1}"
