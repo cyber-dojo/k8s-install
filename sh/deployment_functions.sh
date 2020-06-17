@@ -46,7 +46,7 @@ helm_upgrade()
     local -r k8s_prometheus="--set-string service.annotations.\"prometheus\.io/port\"=${port}"
   fi
 
-  if [ "${K8S_SET_PROBE}" == "false" ]; then
+  if [ "${K8S_SET_PROBES}" == "false" ]; then
     local -r k8s_liveness_probe=""
     local -r k8s_readiness_probe=""
   else
