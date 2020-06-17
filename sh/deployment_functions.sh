@@ -33,7 +33,7 @@ helm_upgrade()
   local -r image="${3}"
   local -r tag="${4}"
   local -r port="${5}"
-  local -r general_values="${6}"
+  local -r general_values="--values ${6}"
   if [ -z "${7:-}" ]; then
     local -r specific_values=""
   else
@@ -60,10 +60,10 @@ helm_upgrade()
     --set-string containers[0].image=${image} \
     --set-string containers[0].tag=${tag} \
     --set service.port=${port} \
-    "${k8s_prometheus}" \
-    "${k8s_liveness_probe}" \
-    "${k8s_readiness_probe}" \
-    --values ${general_values} \
+    ${k8s_prometheus} \
+    ${k8s_liveness_probe} \
+    ${k8s_readiness_probe} \
+    ${general_values} \
     ${specific_values} \
     ${namespace}-${repo} \
     ${HELM_CHART_REPO} \
