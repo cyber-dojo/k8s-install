@@ -35,6 +35,8 @@ helm_upgrade()
   local -r tag="${4}"
   local -r port="${5}"
   local -r general_values="--values ${6}"
+  
+  set -x
   if [ -z "${7:-}" ]; then
     local -r specific_values=""
   else
