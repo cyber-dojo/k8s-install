@@ -1,3 +1,4 @@
+
 HELM_CHART_REPO=praqma/cyber-dojo-service
 HELM_CHART_VERSION=0.2.5
 
@@ -23,12 +24,6 @@ helm_init()
 {
   helm init --client-only
   helm repo add praqma https://praqma-helm-repo.s3.amazonaws.com/
-}
-
-#- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-helm_chart_version()
-{
-  echo ${HELM_CHART_VERSION}
 }
 
 #- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -60,7 +55,7 @@ helm_upgrade_probe_no_prometheus_no()
 }
 
 #- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-helm_upgrade_probe_yes_prometheus_no()
+helm_upgrade_probe_no_prometheus_yes()
 {
   local -r namespace="${1}"
   local -r repo="${2}"
