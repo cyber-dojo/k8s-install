@@ -19,8 +19,7 @@ readonly REPO_VALUES_YML=k8s-general-values.yml
 
 curl ${GITHUB_RAW_CONTENT}/${GITHUB_ORGANIZATION}/versioner/master/app/.env > ${INSTALLER_ENV}
 
-# curl ${GITHUB_RAW_CONTENT}/${GITHUB_ORGANIZATION}/k8s-install/master/sh/deployment_functions.sh > ${INSTALLER_SH_DIR}/deployment_functions.sh
-cp ./../sh/deployment_functions.sh ${INSTALLER_SH_DIR}/deployment_functions.sh
+curl ${GITHUB_RAW_CONTENT}/${GITHUB_ORGANIZATION}/k8s-install/master/sh/deployment_functions.sh > ${INSTALLER_SH_DIR}/deployment_functions.sh
 cp install.sh.resource ${INSTALLER_DIR}/install.sh
 chmod a+x ${INSTALLER_DIR}/install.sh
 
@@ -126,11 +125,8 @@ curl ${GITHUB_RAW_CONTENT}/${GITHUB_ORGANIZATION}/${REPO}/${SHA}/.circleci/${REP
 REPO=web
 SHA="${CYBER_DOJO_WEB_SHA}"
 
-#curl ${GITHUB_RAW_CONTENT}/${GITHUB_ORGANIZATION}/${REPO}/${SHA}/.circleci/${REPO_VALUES_YML} \
-# > ${INSTALLER_DEFAULT_VALUES_DIR}/${REPO}-${REPO_VALUES_YML}
-
-curl ${GITHUB_RAW_CONTENT}/dpolivaev/${REPO}/master/.circleci/${REPO_VALUES_YML} \
-  > ${INSTALLER_DEFAULT_VALUES_DIR}/${REPO}-${REPO_VALUES_YML}
+curl ${GITHUB_RAW_CONTENT}/${GITHUB_ORGANIZATION}/${REPO}/${SHA}/.circleci/${REPO_VALUES_YML} \
+ > ${INSTALLER_DEFAULT_VALUES_DIR}/${REPO}-${REPO_VALUES_YML}
 
 # NGINX
 REPO=nginx

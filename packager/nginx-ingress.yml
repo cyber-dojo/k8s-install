@@ -1,7 +1,7 @@
-loadBalancer:
-  enabled: true
-ingress:
-  enabled: false
+#service:
+#  type: LoadBalancer
+
+# ingress:
+#  enabled: true
 #  hosts:
-#    - cyber-dojo.mobretreat.org
-#  global_static_ip_name: cyber-dojo-mobretreat-ip
+#    - cyber-dojo.example.com
