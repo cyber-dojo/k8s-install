@@ -1,7 +1,5 @@
 #!/bin/bash -Eeu
 readonly NAMESPACE=default
-HELM_CHART_REPO="../../helm-charts/cyber-dojo-service"
-HELM_CHART_VERSION=0.2.6
 readonly REPO_VALUES_YML=k8s-general-values.yml
 
 readonly INSTALLER_DIR=.
@@ -12,6 +10,8 @@ readonly INSTALLER_DEFAULT_VALUES_DIR=${INSTALLER_DIR}/default-values
 
 source ${INSTALLER_SH_DIR}/deployment_functions.sh
 source ${INSTALLER_ENV}
+HELM_CHART_REPO="../../../helm-charts/cyber-dojo-service"
+HELM_CHART_VERSION=0.2.6
 
 
 # CUSTOM_START_POINTS
