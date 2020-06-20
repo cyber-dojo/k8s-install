@@ -1,8 +1,8 @@
 #service:
-#  type: LoadBalancer
+#  type: ClusterIP, NodePort or LoadBalancer
 
 #ingress:
-#  enabled: true
+#  default_enabled: true
 #  tls_enabled: true
 #  annotations:
 #    kubernetes.io/ingress.class: "nginx"
