@@ -1,6 +1,3 @@
-#service:
-#  type: ClusterIP (default), NodePort or LoadBalancer
-
 #ingress:
 #  default_enabled: true
 #  tls_enabled: true
