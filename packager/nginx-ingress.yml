@@ -1,5 +1,5 @@
 #service:
-#  type: ClusterIP, NodePort or LoadBalancer
+#  type: ClusterIP (default), NodePort or LoadBalancer
 
 #ingress:
 #  default_enabled: true
