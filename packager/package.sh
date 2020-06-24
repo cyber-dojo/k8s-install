@@ -17,13 +17,16 @@ readonly GITHUB_RAW_CONTENT=https://raw.githubusercontent.com
 readonly GITHUB_ORGANIZATION=cyber-dojo
 readonly REPO_VALUES_YML=k8s-general-values.yml
 
-curl ${GITHUB_RAW_CONTENT}/${GITHUB_ORGANIZATION}/versioner/master/app/.env > ${INSTALLER_ENV}
+readonly CYBER_DOJO_VERSION=master
+curl ${GITHUB_RAW_CONTENT}/${GITHUB_ORGANIZATION}/versioner/${CYBER_DOJO_VERSION}/app/.env > ${INSTALLER_ENV}
+source ${INSTALLER_ENV}
 
-curl ${GITHUB_RAW_CONTENT}/${GITHUB_ORGANIZATION}/k8s-install/master/sh/deployment_functions.sh > ${INSTALLER_SH_DIR}/deployment_functions.sh
+readonly CYBER_DOJO_K8S_INSTALL_VERSION=${CYBER_DOJO_K8S_INSTALL_SHA}
+curl ${GITHUB_RAW_CONTENT}/${GITHUB_ORGANIZATION}/k8s-install/${CYBER_DOJO_K8S_INSTALL_VERSION}/sh/deployment_functions.sh > ${INSTALLER_SH_DIR}/deployment_functions.sh
 cp install.sh.resource ${INSTALLER_DIR}/install.sh
 chmod a+x ${INSTALLER_DIR}/install.sh
 
-source ${INSTALLER_ENV}
+
 
 # CUSTOM_START_POINTS
 REPO=custom-start-points
