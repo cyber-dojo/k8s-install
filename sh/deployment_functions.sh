@@ -1,6 +1,6 @@
 
 HELM_CHART_REPO=praqma/cyber-dojo-service
-HELM_CHART_VERSION=0.2.5
+HELM_CHART_VERSION=0.2.6
 
 #- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 gcloud_init()
