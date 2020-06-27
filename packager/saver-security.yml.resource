@@ -1,0 +1,5 @@
+
+podSecurityContext:
+  runAsUser: 19663
+  runAsGroup: 65533
+  fsGroup: 65533

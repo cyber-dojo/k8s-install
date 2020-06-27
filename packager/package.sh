@@ -106,7 +106,11 @@ SHA="${CYBER_DOJO_SAVER_SHA}"
 
 curl ${GITHUB_RAW_CONTENT}/${GITHUB_ORGANIZATION}/${REPO}/${SHA}/.circleci/${REPO_VALUES_YML} \
   > ${INSTALLER_DEFAULT_VALUES_DIR}/${REPO}-${REPO_VALUES_YML}
-  
+
+cat saver-security.yml.resource >> ${INSTALLER_DEFAULT_VALUES_DIR}/${REPO}-${REPO_VALUES_YML}
+
+
+
 cp saver-pvc.yml ${INSTALLER_USER_VALUES_DIR}/saver-pvc.yml
 
 # REPLER
