@@ -1,5 +1,7 @@
 #!/bin/bash -Eeu
 
+readonly CYBER_DOJO_VERSION=${1:-master}
+
 # initialize
 readonly INSTALLER_DIR=installer
 readonly INSTALLER_ENV=${INSTALLER_DIR}/env
@@ -17,7 +19,7 @@ readonly GITHUB_RAW_CONTENT=https://raw.githubusercontent.com
 readonly GITHUB_ORGANIZATION=cyber-dojo
 readonly REPO_VALUES_YML=k8s-general-values.yml
 
-readonly CYBER_DOJO_VERSION=master
+
 curl ${GITHUB_RAW_CONTENT}/${GITHUB_ORGANIZATION}/versioner/${CYBER_DOJO_VERSION}/app/.env > ${INSTALLER_ENV}
 source ${INSTALLER_ENV}
 
@@ -99,6 +101,7 @@ SHA="${CYBER_DOJO_RUNNER_SHA}"
 
 curl ${GITHUB_RAW_CONTENT}/${GITHUB_ORGANIZATION}/${REPO}/${SHA}/.circleci/${REPO_VALUES_YML} \
   > ${INSTALLER_DEFAULT_VALUES_DIR}/${REPO}-${REPO_VALUES_YML}
+cp runner-pulls.yml ${INSTALLER_USER_VALUES_DIR}/runner-pulls.yml
 
 # SAVER
 REPO=saver
@@ -108,9 +111,6 @@ curl ${GITHUB_RAW_CONTENT}/${GITHUB_ORGANIZATION}/${REPO}/${SHA}/.circleci/${REP
   > ${INSTALLER_DEFAULT_VALUES_DIR}/${REPO}-${REPO_VALUES_YML}
 
 cat saver-security.yml.resource >> ${INSTALLER_DEFAULT_VALUES_DIR}/${REPO}-${REPO_VALUES_YML}
-
-
-
 cp saver-pvc.yml ${INSTALLER_USER_VALUES_DIR}/saver-pvc.yml
 
 # REPLER
