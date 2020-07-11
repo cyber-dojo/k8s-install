@@ -1,6 +1,6 @@
 #!/bin/bash -Eeuv
 
-readonly NAMESPACE=default
+readonly NAMESPACE=cyber-dojo
 readonly REPO_VALUES_YML=k8s-general-values.yml
 
 readonly INSTALLER_DIR=.
@@ -14,6 +14,8 @@ source ${INSTALLER_ENV}
 
 helm repo add praqma https://praqma-helm-repo.s3.amazonaws.com/
 helm repo update
+
+kubectl create namespace ${NAMESPACE} &> /dev/null && echo namespace "\"${NAMESPACE}\"" created || echo namespace "\"${NAMESPACE}\"" already exists
 
 # CUSTOM_START_POINTS
 REPO=custom-start-points
