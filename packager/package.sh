@@ -1,4 +1,4 @@
-#!/bin/bash -Eeu
+#!/bin/bash -Eeuv
 
 readonly CYBER_DOJO_VERSION=${1:-master}
 

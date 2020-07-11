@@ -1,4 +1,5 @@
-#!/bin/bash -Eeu
+#!/bin/bash -Eeuv
+
 readonly NAMESPACE=default
 readonly REPO_VALUES_YML=k8s-general-values.yml
 
