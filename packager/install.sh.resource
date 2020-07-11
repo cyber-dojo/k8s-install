@@ -11,6 +11,9 @@ readonly INSTALLER_DEFAULT_VALUES_DIR=${INSTALLER_DIR}/default-values
 source ${INSTALLER_SH_DIR}/deployment_functions.sh
 source ${INSTALLER_ENV}
 
+helm repo add praqma https://praqma-helm-repo.s3.amazonaws.com/
+helm repo update
+
 # CUSTOM_START_POINTS
 REPO=custom-start-points
 helm_upgrade_probe_yes_prometheus_yes "${NAMESPACE}" "${REPO}" \
