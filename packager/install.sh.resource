@@ -21,7 +21,7 @@ helm_upgrade_probe_yes_prometheus_yes "${NAMESPACE}" "${REPO}" \
 REPO=languages-start-points
 
 helm_upgrade_probe_yes_prometheus_yes "${NAMESPACE}" "${REPO}" \
-   "cyberdojo/languages-start-points-all" "${CYBER_DOJO_LANGUAGES_START_POINTS_TAG}" "${CYBER_DOJO_LANGUAGES_START_POINTS_PORT}" \
+   "${CYBER_DOJO_LANGUAGES_START_POINTS_IMAGE}" "${CYBER_DOJO_LANGUAGES_START_POINTS_TAG}" "${CYBER_DOJO_LANGUAGES_START_POINTS_PORT}" \
    "${INSTALLER_DEFAULT_VALUES_DIR}/${REPO}-${REPO_VALUES_YML}"
    
 # EXERCISES_START_POINTS
