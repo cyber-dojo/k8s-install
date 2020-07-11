@@ -1,4 +1,5 @@
-#!/bin/bash -Eeu
+#!/bin/bash -Eeuv
+
 readonly NAMESPACE=default
 readonly REPO_VALUES_YML=k8s-general-values.yml
 
@@ -11,6 +12,9 @@ readonly INSTALLER_DEFAULT_VALUES_DIR=${INSTALLER_DIR}/default-values
 source ${INSTALLER_SH_DIR}/deployment_functions.sh
 source ${INSTALLER_ENV}
 
+helm repo add praqma https://praqma-helm-repo.s3.amazonaws.com/
+helm repo update
+
 # CUSTOM_START_POINTS
 REPO=custom-start-points
 helm_upgrade_probe_yes_prometheus_yes "${NAMESPACE}" "${REPO}" \
@@ -21,7 +25,7 @@ helm_upgrade_probe_yes_prometheus_yes "${NAMESPACE}" "${REPO}" \
 REPO=languages-start-points
 
 helm_upgrade_probe_yes_prometheus_yes "${NAMESPACE}" "${REPO}" \
-   "cyberdojo/languages-start-points-all" "${CYBER_DOJO_LANGUAGES_START_POINTS_TAG}" "${CYBER_DOJO_LANGUAGES_START_POINTS_PORT}" \
+   "${CYBER_DOJO_LANGUAGES_START_POINTS_IMAGE}" "${CYBER_DOJO_LANGUAGES_START_POINTS_TAG}" "${CYBER_DOJO_LANGUAGES_START_POINTS_PORT}" \
    "${INSTALLER_DEFAULT_VALUES_DIR}/${REPO}-${REPO_VALUES_YML}"
    
 # EXERCISES_START_POINTS
@@ -70,7 +74,7 @@ helm_upgrade_probe_yes_prometheus_yes "${NAMESPACE}" "${REPO}" \
 REPO=runner
 helm_upgrade_probe_yes_prometheus_yes "${NAMESPACE}" "${REPO}" \
    "${CYBER_DOJO_RUNNER_IMAGE}" "${CYBER_DOJO_RUNNER_TAG}" "${CYBER_DOJO_RUNNER_PORT}" \
-   "${INSTALLER_DEFAULT_VALUES_DIR}/${REPO}-${REPO_VALUES_YML}" "${INSTALLER_USER_VALUES_DIR}/runner-pulls.yml"
+   "${INSTALLER_DEFAULT_VALUES_DIR}/${REPO}-${REPO_VALUES_YML}"
 
 # SAVER
 REPO=saver

@@ -1,4 +1,4 @@
-#!/bin/bash -Eeu
+#!/bin/bash -Eeuv
 
 readonly CYBER_DOJO_VERSION=${1:-master}
 
@@ -101,7 +101,6 @@ SHA="${CYBER_DOJO_RUNNER_SHA}"
 
 curl ${GITHUB_RAW_CONTENT}/${GITHUB_ORGANIZATION}/${REPO}/${SHA}/.circleci/${REPO_VALUES_YML} \
   > ${INSTALLER_DEFAULT_VALUES_DIR}/${REPO}-${REPO_VALUES_YML}
-cp runner-pulls.yml ${INSTALLER_USER_VALUES_DIR}/runner-pulls.yml
 
 # SAVER
 REPO=saver
@@ -111,7 +110,7 @@ curl ${GITHUB_RAW_CONTENT}/${GITHUB_ORGANIZATION}/${REPO}/${SHA}/.circleci/${REP
   > ${INSTALLER_DEFAULT_VALUES_DIR}/${REPO}-${REPO_VALUES_YML}
 
 cat saver-security.yml.resource >> ${INSTALLER_DEFAULT_VALUES_DIR}/${REPO}-${REPO_VALUES_YML}
-cp saver-pvc.yml ${INSTALLER_USER_VALUES_DIR}/saver-pvc.yml
+cp saver-pvc.yml.resource ${INSTALLER_USER_VALUES_DIR}/saver-pvc.yml
 
 # REPLER
 REPO=repler
@@ -142,4 +141,4 @@ SHA="${CYBER_DOJO_NGINX_SHA}"
 curl ${GITHUB_RAW_CONTENT}/${GITHUB_ORGANIZATION}/${REPO}/${SHA}/.circleci/${REPO_VALUES_YML} \
   > ${INSTALLER_DEFAULT_VALUES_DIR}/${REPO}-${REPO_VALUES_YML}
 
-cp nginx-ingress.yml ${INSTALLER_USER_VALUES_DIR}/nginx-ingress.yml
+cp nginx-ingress.yml.resource ${INSTALLER_USER_VALUES_DIR}/nginx-ingress.yml
