@@ -26,7 +26,7 @@ Cyber-Dojo can be installed on any kubernetes cluster. This project contains ins
 
 ```bash
  cd cert-manager-nginx-controller-installer
-# Put your registered domain and your valid e-mail address into the ENV file
+# Put your registered domain and your valid e-mail address into the "env" file
 
 # Select your cluster as kubectl context, e.g. for cluster named cluster-1
  kubectl config use-context cluster-1
