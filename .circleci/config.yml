@@ -1,0 +1,5 @@
+version: 2
+jobs:
+  deploy-cyber-dojo:
+    docker:
+      image:praqma/k3d

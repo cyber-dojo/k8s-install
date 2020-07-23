@@ -1,0 +1,8 @@
+FROM alpine
+
+RUN apk add --update
+# Installing common utils
+RUN apk add --virtual .comon_utils curl bash
+RUN curl -s https://raw.githubusercontent.com/rancher/k3d/main/install.sh | bash && \
+    k3d -version
+
