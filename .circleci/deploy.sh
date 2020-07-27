@@ -7,6 +7,10 @@ function setup_k3dcluster() {
     k3d --version
     kubectl version 
     echo "1"
+    docker version
+    echo "****"
+    docker ps
+    echo "#*****#"
     docker info
     echo "**"
     k3d cluster create cyberdojo
