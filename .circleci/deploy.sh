@@ -6,9 +6,12 @@
 function setup_k3dcluster() {
     k3d --version
     kubectl version 
+    echo "1"
     k3d cluster create cyberdojo
+    echo "2"
     k3d kubeconfig merge cyberdojo --switch-context
-    kubectl get pods -A
+    echo "3"
+    kubectl get nodes -A
 }
 # Change directory to packager and run necessary steps
 function deploy_cyberdojo() {
@@ -35,8 +38,8 @@ echo "Inside deploy script"
 echo "Spinning up k3d cluster"
 setup_k3dcluster
 
-echo "deploy cyberdojo service in k3d cluster"
-deploy_cyberdojo
+#echo "deploy cyberdojo service in k3d cluster"
+#deploy_cyberdojo
 
 # Verify installation
 
