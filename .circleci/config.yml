@@ -2,4 +2,7 @@ version: 2
 jobs:
   deploy-cyber-dojo:
     docker:
-      image:praqma/k3d
+      - image: praqma/k3d
+    steps:
+        - checkout
+        - run: .circleci/deploy.sh
