@@ -1,4 +1,4 @@
-FROM docker:17
+FROM figured/docker-kubectl-helm-git
 
 RUN apk add --update
 # Installing common utils
