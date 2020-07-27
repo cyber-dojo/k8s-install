@@ -1,7 +1,7 @@
 FROM docker
 
 RUN apk add --update
-# Installing common utils
+# Installing common util
 RUN apk add --virtual .comon_utils curl bash
 
 RUN curl -s https://raw.githubusercontent.com/rancher/k3d/main/install.sh | bash && \
