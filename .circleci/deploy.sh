@@ -1,7 +1,7 @@
 #!/bin/bash
 # Script to start k3d cluster and deploy cyberdojo
 
-# Step1 - Start single node k3d cluster
+#  Step1 - Start single node k3d cluster
 # Step2 - Switch default context for kubeconfig
 function setup_k3dcluster() {
     k3d cluster create cyberdojo
