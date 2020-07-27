@@ -7,6 +7,8 @@ function setup_k3dcluster() {
     k3d --version
     kubectl version 
     echo "1"
+    docker info
+    echo "**"
     k3d cluster create cyberdojo
     echo "2"
     k3d kubeconfig merge cyberdojo --switch-context
