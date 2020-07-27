@@ -4,14 +4,16 @@
 #  Step1 - Start single node k3d cluster
 # Step2 - Switch default context for kubeconfig
 function setup_k3dcluster() {
-    k3d -version
-    kubectl -version
+    k3d --version
+    kubectl -version 
     k3d cluster create cyberdojo
     k3d kubeconfig merge cyberdojo --switch-context
-    kubectl get pods -A
+    kubectl get pods -A command not found
 }
 # Change directory to packager and run necessary steps
 function deploy_cyberdojo() {
+    pwd
+    ls -lrt
     cd ../packager
     ./package.sh
     if [$? -gt 0]; then
