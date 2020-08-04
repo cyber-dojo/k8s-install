@@ -1,8 +1,42 @@
 version: 2
 jobs:
-  build:
-    docker:
-      - image: praqma/k3d
+  scm-checkout:
+    machine:
+      image: 'circleci/classic:latest'
     steps:
         - checkout
-        - run: .circleci/deploy.sh
+        - run:
+            name: Init
+            command: |
+              ls-al  
+              echo "Code is here"
+  utils-install:
+    machine:
+      image: 'circleci/classic:latest'
+    steps:
+      - run:
+          name: Install dependancies
+          command: |
+            ./utils.sh
+            echo "Install dependancies complete"
+  deploy-cyberdojo:
+    machine:
+      image: 'circleci/classic:latest'
+    steps:
+      - run:
+          name: Deploy cyberdojo
+          command: |
+            ./deploy.sh
+            echo "Deploying cyberdojo complete"
+
+workflows:
+  init-utils-deploy:
+    jobs:
+      - scm-checkout
+      - utils-install:
+          requires:
+            - scm-checkout
+      - deploy-cyberdojo:
+          requires:
+            - utils-install
+
