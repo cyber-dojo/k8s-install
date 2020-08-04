@@ -8,7 +8,7 @@ jobs:
         - run:
             name: Init
             command: |
-              ls-al  
+              ls -al
               echo "Code is here"
   utils-install:
     machine:
