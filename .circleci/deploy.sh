@@ -4,7 +4,7 @@
 function deploy_cyberdojo() {
     pwd
     ls -lrt
-    cd packager
+    cd ../packager
     ./package.sh
     if [$? -gt 0]; then
         echo "Packaging errors identified"
