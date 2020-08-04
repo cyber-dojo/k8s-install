@@ -10,6 +10,7 @@ jobs:
             command: |
               ls -al
               echo "Code is here"
+              cd .circleci
               ./utils.sh
               echo "Install dependancies complete"
               ./deploy.sh
