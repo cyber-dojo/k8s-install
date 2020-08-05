@@ -9,6 +9,8 @@ function install_k3s(){
     k3s --help
     export KUBECONFIG=/etc/rancher/k3s/k3s.yaml
     echo "start k3s cluster"
+    kubectl get pods --all-namespaces
+    helm ls --all-namespaces
 
 }
 
