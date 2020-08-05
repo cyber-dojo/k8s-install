@@ -3,8 +3,6 @@
 
 function install_k3s(){
 
-    #sudo apt-get update
-    #sudo apt-get install systemd
     echo "download and install k3s"
     curl -sfL https://get.k3s.io | sh -
     k3s --help
