@@ -11,7 +11,7 @@ jobs:
               ls -al
               echo "Code is here"
               cd .circleci
-              sudo ./utils.sh
+              sudo ./utils.sh v2.14.1
               echo "Install dependancies complete"
               sudo ./deploy.sh
               echo "Deploying cyberdojo complete"
