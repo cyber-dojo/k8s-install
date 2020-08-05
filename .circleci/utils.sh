@@ -9,9 +9,8 @@ function install_k3s(){
     k3s --help
     export KUBECONFIG=/etc/rancher/k3s/k3s.yaml
     echo "start k3s cluster"
-    kubectl get pods --all-namespaces
-    helm ls --all-namespaces
-
+    sudo k3s server &
+    sudo k3s kubectl get node
 }
 
 function install_helm(){
@@ -27,4 +26,4 @@ function install_helm(){
 echo "install k3s"
 install_k3s
 echo "install helm"
-install_helm
+# install_helm
