@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # Script to install k3s in machine executor
 HELM_VERSION=$1
 
@@ -15,10 +15,10 @@ function install_k3s(){
 
 function install_helm(){
     echo "download and install helm"
-    curl -Lo helm-${HELM_VERSION}-linux-amd64.tar.gz https://get.helm.sh/helm-${HELM_VERSION}-linux-amd64.tar.gz && \
-    tar -zxvf helm-${HELM_VERSION}-linux-amd64.tar.gz && \
+    curl -Lo helm-$HELM_VERSION-linux-amd64.tar.gz https://get.helm.sh/helm-$HELM_VERSION-linux-amd64.tar.gz && \
+    tar -zxvf helm-$HELM_VERSION-linux-amd64.tar.gz && \
     mv linux-amd64/helm /usr/local/bin/helm && \
-    rm helm-${HELM_VERSION}-linux-amd64.tar.gz && \
+    rm helm-$HELM_VERSION-linux-amd64.tar.gz && \
     rm -rf linux-amd64
 }
 

@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # Script to deploy cyberdojo in k3s
 
 function deploy_cyberdojo() {
