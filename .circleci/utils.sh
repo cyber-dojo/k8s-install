@@ -1,6 +1,6 @@
-#!/bin/bash
+#!/bin/sh
 # Script to install k3s in machine executor
-HELM_VERSION = $1
+HELM_VERSION=$1
 
 function install_k3s(){
     echo $PATH
