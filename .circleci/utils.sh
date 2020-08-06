@@ -5,12 +5,10 @@ HELM_VERSION=$1
 function install_k3s(){
     echo $PATH
     echo "download and install k3s"
-    curl -sfL https://get.k3s.io | sh -
+    sudo curl -sfL https://get.k3s.io | sh -s - server
     k3s --help
     export KUBECONFIG=/etc/rancher/k3s/k3s.yaml
-    echo "start k3s cluster"
-    sudo k3s server &
-    sudo k3s kubectl get node
+    sudo k3s kubectl get nodes
 }
 
 function install_helm(){
