@@ -7,7 +7,11 @@ function install_k3s(){
     echo "download and install k3s"
     sudo curl -sfL https://get.k3s.io | sh -s - server
     k3s --help
+    echo "Kubeconfig"
+    echo $KUBECONFIG
     export KUBECONFIG=/etc/rancher/k3s/k3s.yaml
+    sudo k3s agent
+    sudo cat /etc/rancher/k3s/k3s.yaml
     sudo k3s kubectl get nodes --all-namespaces
 }
 
