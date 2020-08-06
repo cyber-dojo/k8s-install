@@ -9,10 +9,12 @@ jobs:
     working_directory: ~/.circleci
     steps:
         - checkout
-        
+
         - run:
             name: Setup k3s and helm
             command: |
+              pwd
+              ls -al
               sudo ./utils.sh ${HELM_VERSION}
               echo "Install dependancies complete"
 
