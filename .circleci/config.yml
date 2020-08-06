@@ -3,16 +3,22 @@ jobs:
   build:
     machine:
       image: 'ubuntu-1604:201903-01'
+    environment:
+      HELM_VERSION: v2.14.1
+
+    working_directory: ~/.circleci
     steps:
         - checkout
+        
         - run:
-            name: Init
+            name: Setup k3s and helm
             command: |
-              ls -al
-              echo "Code is here"
-              cd .circleci
-              sudo ./utils.sh v2.14.1
+              sudo ./utils.sh ${HELM_VERSION}
               echo "Install dependancies complete"
+
+        - run:
+            name: Deploy cyberdojo
+            command: |
               sudo ./deploy.sh
               echo "Deploying cyberdojo complete"
 

@@ -6,7 +6,7 @@ function install_k3s(){
     echo $PATH
     echo "download and install k3s"
     sudo curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC="--write-kubeconfig-mode 664" sh -
-    sleep 5
+    sleep 10
     sudo k3s kubectl get nodes --all-namespaces
 }
 
