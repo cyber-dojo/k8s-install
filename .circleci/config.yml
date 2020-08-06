@@ -6,7 +6,7 @@ jobs:
     environment:
       HELM_VERSION: v2.14.1
 
-    working_directory: ~/k8s-install/.circleci
+    working_directory: ~/k8s-install/.circleci/
     steps:
         - checkout
 
