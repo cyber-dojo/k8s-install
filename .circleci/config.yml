@@ -6,15 +6,13 @@ jobs:
     environment:
       HELM_VERSION: v2.14.1
 
-    working_directory: ~/k8s-install/build_scripts
     steps:
         - checkout
 
         - run:
             name: Setup k3s and helm
             command: |
-              pwd
-              ls -al
+              cd build_scripts
               sudo ./utils.sh ${HELM_VERSION}
               echo "Install dependancies complete"
 
