@@ -20,7 +20,7 @@ jobs:
             name: Deploy cyberdojo
             command: |
               cd build_scripts
-              # sudo ./deploy.sh
+              sudo ./deploy.sh
               echo "Deploying cyberdojo complete"
 
 
