@@ -8,6 +8,11 @@ function install_k3s(){
     sudo curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC="--write-kubeconfig-mode 664" sh -
     sleep 10
     sudo k3s kubectl get nodes --all-namespaces
+    kubectl get nodes -A
+    kubectl get pods -A
+    sleep 10
+    kubectl get nodes -A
+
 }
 
 function install_helm(){
