@@ -14,5 +14,20 @@ Rather than gong for docker and k3d in machine executor, lets try a basic machin
 Steps:
 1. Circle CI config- machine executor
 2. Update script
-3. Script 1 for infra setup ie, install k3s and required sw
+3. Script 1 for infra setup ie, install k3s and helm
 4. Script 2 for k3s cluster create, and deploy cyberdojo
+5. Script to wait until deployment and check for all cyberdojo services were up
+
+Errors - k3s cluster created and server process is running. but no resources are available.
+    0) checkout the github
+    1) Try running k3s agent also
+        Error: 
+            * Token required error
+            * echo $KUBECONFIG returned nothing
+    2) Read more
+    3) Should we go for PLAN C wiith RKE? or switch to minikube in 
+
+
+Doubts - 
+Can circle CI use a singlemachine executor for all jobs in a workflow?
+How many nodes are required for cyberdojo in this case? HA not reqrd ryt

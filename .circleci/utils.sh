@@ -5,12 +5,10 @@ HELM_VERSION=$1
 function install_k3s(){
     echo $PATH
     echo "download and install k3s"
-    sudo curl -sfL https://get.k3s.io | sh -s - server
+    sudo curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC="--write-kubeconfig-mode 664" sh -
+    sleep 5
 
-    export KUBECONFIG=/etc/rancher/k3s/k3s.yaml
     echo "Kubeconfig :: $KUBECONFIG"
-
-    sudo k3s agent -s https://127.0.0.1:6443 --token-file /var/lib/rancher/k3s/server/node-token
 
     sudo k3s kubectl get nodes --all-namespaces
 }
