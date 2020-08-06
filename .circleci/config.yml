@@ -13,7 +13,7 @@ jobs:
               cd .circleci
               sudo ./utils.sh v2.14.1
               echo "Install dependancies complete"
-              # sudo ./deploy.sh
-              # echo "Deploying cyberdojo complete"
+              sudo ./deploy.sh
+              echo "Deploying cyberdojo complete"
 
 

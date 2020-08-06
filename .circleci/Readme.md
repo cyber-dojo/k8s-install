@@ -19,15 +19,14 @@ Steps:
 5. Script to wait until deployment and check for all cyberdojo services were up
 
 Errors - k3s cluster created and server process is running. but no resources are available.
-    0) checkout the github
     1) Try running k3s agent also
         Error: 
             * Token required error
             * echo $KUBECONFIG returned nothing
+            * token added but connection refused errors
     2) Read more
-    3) Should we go for PLAN C wiith RKE? or switch to minikube in 
+    3) use INSTALL_K3S_EXEC="--write-kubeconfig-mode 664" - one node created
 
+Now that node is created lets try cyber dojo implementation
 
-Doubts - 
-Can circle CI use a singlemachine executor for all jobs in a workflow?
-How many nodes are required for cyberdojo in this case? HA not reqrd ryt
+Remember to optimise config.yaml and all scripts
