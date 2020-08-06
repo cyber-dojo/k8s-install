@@ -8,7 +8,7 @@ function install_k3s(){
     sudo curl -sfL https://get.k3s.io | sh -s - server
     k3s --help
     export KUBECONFIG=/etc/rancher/k3s/k3s.yaml
-    sudo k3s kubectl get nodes
+    sudo k3s kubectl get nodes --all-namespaces
 }
 
 function install_helm(){
