@@ -2,6 +2,7 @@
 # Script to deploy cyberdojo in k3s
 
 function deploy_cyberdojo() {
+    export KUBECONFIG=/etc/rancher/k3s/k3s.yaml
     pwd
     ls -lrt
     cd ../packager
