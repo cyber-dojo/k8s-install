@@ -11,6 +11,8 @@ function install_k3s(){
     cat /etc/rancher/k3s/k3s.yaml
     sleep 25
     kubectl get nodes -A
+    kubectl create namespace tester
+    kbectl get namespaces
 
 }
 
