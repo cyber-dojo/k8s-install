@@ -16,7 +16,8 @@ helm repo add praqma https://praqma-helm-repo.s3.amazonaws.com/
 helm repo update
 
 kubectl create namespace ${NAMESPACE} &> /dev/null && echo namespace "\"${NAMESPACE}\"" created || echo namespace "\"${NAMESPACE}\"" already exists
-
+echo "passed this step"
+kubectl get namespaces
 # CUSTOM_START_POINTS
 REPO=custom-start-points
 helm_upgrade_probe_yes_prometheus_yes "${NAMESPACE}" "${REPO}" \

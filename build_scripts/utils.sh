@@ -12,7 +12,7 @@ function install_k3s(){
     sleep 25
     kubectl get nodes -A
     kubectl create namespace tester
-    kbectl get namespaces
+    kubectl get namespaces
 
 }
 

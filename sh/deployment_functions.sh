@@ -6,7 +6,7 @@ HELM_CHART_VERSION=0.2.7
 gcloud_init()
 {
   # vars are in ci context
-
+  echo "Inside gcloud_init"
   echo ${GCP_K8S_CREDENTIALS} > /gcp/gcp-credentials.json
 
   gcloud auth activate-service-account \
@@ -22,6 +22,7 @@ gcloud_init()
 #- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 helm_init()
 {
+   echo "Inside hlm_init"
   helm init --client-only
   helm repo add praqma https://praqma-helm-repo.s3.amazonaws.com/
 }
@@ -29,6 +30,7 @@ helm_init()
 #- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 helm_upgrade_probe_no_prometheus_no()
 {
+   echo "Inside helm1"
   local -r namespace="${1}"
   local -r repo="${2}"
   local -r image="${3}"
@@ -57,6 +59,7 @@ helm_upgrade_probe_no_prometheus_no()
 #- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 helm_upgrade_probe_no_prometheus_yes()
 {
+   echo "Inside helm2"
   local -r namespace="${1}"
   local -r repo="${2}"
   local -r image="${3}"
@@ -82,6 +85,7 @@ helm_upgrade_probe_no_prometheus_yes()
 #- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 helm_upgrade_probe_yes_prometheus_yes()
 {
+   echo "Inside helm3"
   local -r namespace="${1}"
   local -r repo="${2}"
   local -r image="${3}"
