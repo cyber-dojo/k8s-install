@@ -9,6 +9,7 @@ readonly INSTALLER_USER_VALUES_DIR=${INSTALLER_DIR}
 readonly INSTALLER_SH_DIR=${INSTALLER_DIR}/sh
 readonly INSTALLER_DEFAULT_VALUES_DIR=${INSTALLER_DIR}/default-values
 
+echo "Inside Package.sh"
 mkdir  -p ${INSTALLER_DIR}
 rm -rf ${INSTALLER_DIR}/*
 mkdir  -p ${INSTALLER_SH_DIR}
@@ -27,7 +28,7 @@ readonly CYBER_DOJO_K8S_INSTALL_VERSION=${CYBER_DOJO_K8S_INSTALL_SHA}
 curl ${GITHUB_RAW_CONTENT}/${GITHUB_ORGANIZATION}/k8s-install/${CYBER_DOJO_K8S_INSTALL_VERSION}/sh/deployment_functions.sh > ${INSTALLER_SH_DIR}/deployment_functions.sh
 cp install.sh.resource ${INSTALLER_DIR}/install.sh
 chmod a+x ${INSTALLER_DIR}/install.sh
-
+eco "Installer copied"
 
 
 # CUSTOM_START_POINTS

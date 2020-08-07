@@ -6,19 +6,9 @@ function deploy_cyberdojo() {
     ls -lrt
     cd ../packager
     ./package.sh
-    if [$? -gt 0]; then
-        echo "Packaging errors identified"
-        exit 1
-    else
-        echo "Package done"
-        cd ./installer
-        ./install.sh
-        if [$? -gt 0]; then
-            echo "installation failed"
-            exit 1
-        fi
-    fi
-
+    echo "Package done"
+    cd ./installer
+    ./install.sh
 }
 
 echo "Inside deploy script"

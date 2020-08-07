@@ -14,9 +14,9 @@ source ${INSTALLER_ENV}
 helm init
 helm repo add praqma https://praqma-helm-repo.s3.amazonaws.com/
 helm repo update
-
+echo "before namespace"
 kubectl create namespace ${NAMESPACE} &> /dev/null && echo namespace "\"${NAMESPACE}\"" created || echo namespace "\"${NAMESPACE}\"" already exists
-echo "passed this step"
+echo "passed this step and created ${NAMESPACE}"
 kubectl get namespaces
 # CUSTOM_START_POINTS
 REPO=custom-start-points
