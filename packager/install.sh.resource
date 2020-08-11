@@ -11,18 +11,14 @@ readonly INSTALLER_DEFAULT_VALUES_DIR=${INSTALLER_DIR}/default-values
 
 source ${INSTALLER_SH_DIR}/deployment_functions.sh
 source ${INSTALLER_ENV}
-echo "STARTTTTTTT"
-helm init --service-account tiller
+
 echo "helm version"
 helm version
-echo "helmmm initttt doneeee"
+
 helm repo add praqma https://praqma-helm-repo.s3.amazonaws.com/
-echo "helm repoooo addeddddd"
 helm repo update
-echo "before namespace"
 kubectl create namespace ${NAMESPACE} &> /dev/null && echo namespace "\"${NAMESPACE}\"" created || echo namespace "\"${NAMESPACE}\"" already exists
-echo "passed this step and created ${NAMESPACE}"
-kubectl get namespaces
+
 # CUSTOM_START_POINTS
 REPO=custom-start-points
 helm_upgrade_probe_yes_prometheus_yes "${NAMESPACE}" "${REPO}" \

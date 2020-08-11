@@ -26,9 +26,6 @@ function install_helm(){
     helm init --service-account tiller
     echo "check status of tiller"
     kubectl -n kube-system  rollout status deploy/tiller-deploy
-    echo "helm version"
-    helm version
-
 }
 
 echo "install k3s"
