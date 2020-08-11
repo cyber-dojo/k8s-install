@@ -12,7 +12,7 @@ readonly INSTALLER_DEFAULT_VALUES_DIR=${INSTALLER_DIR}/default-values
 source ${INSTALLER_SH_DIR}/deployment_functions.sh
 source ${INSTALLER_ENV}
 echo "STARTTTTTTT"
-helm init
+helm init --service-account tiller
 echo "helmmm initttt doneeee"
 helm repo add praqma https://praqma-helm-repo.s3.amazonaws.com/
 echo "helm repoooo addeddddd"
