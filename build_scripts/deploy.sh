@@ -3,7 +3,6 @@
 
 function deploy_cyberdojo() {
     export KUBECONFIG=/etc/rancher/k3s/k3s.yaml
-    helm version
     pwd
     ls -lrt
     cd ../packager
