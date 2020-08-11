@@ -85,7 +85,9 @@ helm_upgrade_probe_no_prometheus_yes()
 #- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 helm_upgrade_probe_yes_prometheus_yes()
 {
-   echo "Inside helm3"
+   echo "Inside helm2"
+   echo "helm version is printed again"
+   helm version
   local -r namespace="${1}"
   local -r repo="${2}"
   local -r image="${3}"
