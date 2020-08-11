@@ -20,8 +20,6 @@ function install_helm(){
     rm helm-$HELM_VERSION-linux-amd64.tar.gz 
     rm -rf linux-amd64
     helm --help
-    sleep 20
-    kubectl get serviceaccounts -n kube-system
 }
 
 echo "install k3s"
