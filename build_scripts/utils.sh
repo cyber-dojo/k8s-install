@@ -10,8 +10,6 @@ function install_k3s(){
     echo "KUBECONFIG = $KUBECONFIG"
     sleep 25
     kubectl get nodes -A
-    kubectl get serviceaccounts -A
-    kubectl get clusterrolebinding -A
 }
 
 function install_helm(){
@@ -23,9 +21,8 @@ function install_helm(){
     rm -rf linux-amd64
     helm --help
     sleep 20
-    kubectl get serviceaccounts -A
-    kubectl get clusterrolebinding -A
-    helm init --service-account tiller
+    kubectl get serviceaccounts -A | grep tiller
+    kubectl get clusterrolebinding -A | grep tiller
 }
 
 echo "install k3s"

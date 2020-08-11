@@ -23,7 +23,7 @@ gcloud_init()
 helm_init()
 {
    echo "Inside hlm_init"
-  helm init --client-only
+  helm init --client-only --service-account tiller
   helm repo add praqma https://praqma-helm-repo.s3.amazonaws.com/
 }
 
