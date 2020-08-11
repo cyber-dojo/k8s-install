@@ -19,8 +19,10 @@ function install_helm(){
     mv linux-amd64/helm /usr/local/bin/helm 
     rm helm-$HELM_VERSION-linux-amd64.tar.gz 
     rm -rf linux-amd64
-    helm --help
     echo "KUBECONFIG = $KUBECONFIG"
+    echo "Installing tiller"
+    kubectl -n kube-system create serviceaccount tiller
+    kubectl create clusterrolebinding tiller --clusterrole=cluster-admin --serviceaccount=kube-system:tiller
     helm init --service-account tiller
     echo "check status of tiller"
     kubectl -n kube-system  rollout status deploy/tiller-deploy
