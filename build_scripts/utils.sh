@@ -20,6 +20,13 @@ function install_helm(){
     rm helm-$HELM_VERSION-linux-amd64.tar.gz 
     rm -rf linux-amd64
     helm --help
+    echo "KUBECONFIG = $KUBECONFIG"
+    helm init --service-account tiller
+    echo "check status of tiller"
+    kubectl -n kube-system  rollout status deploy/tiller-deploy
+    echo "helm version"
+    helm version
+
 }
 
 echo "install k3s"
