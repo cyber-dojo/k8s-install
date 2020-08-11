@@ -5,6 +5,8 @@ function deploy_cyberdojo() {
     export KUBECONFIG=/etc/rancher/k3s/k3s.yaml
     pwd
     ls -lrt
+    echo "helm init done early"
+    helm init --service-account tiller
     cd ../packager
     ./package.sh
     echo "Package done"
