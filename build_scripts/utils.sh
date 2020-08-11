@@ -21,8 +21,7 @@ function install_helm(){
     rm -rf linux-amd64
     helm --help
     sleep 20
-    kubectl get serviceaccounts -A | grep tiller
-    kubectl get clusterrolebinding -A | grep tiller
+    kubectl get serviceaccounts -n kube-system
 }
 
 echo "install k3s"
