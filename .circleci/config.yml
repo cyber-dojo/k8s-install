@@ -22,7 +22,5 @@ jobs:
               cd build_scripts
               sudo ./deploy.sh
               echo "Deploying cyberdojo complete"
-              echo "curl to check deployment"
-              curl localhost:8080
 
 

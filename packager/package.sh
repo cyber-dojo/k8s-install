@@ -28,7 +28,6 @@ readonly CYBER_DOJO_K8S_INSTALL_VERSION=${CYBER_DOJO_K8S_INSTALL_SHA}
 curl ${GITHUB_RAW_CONTENT}/${GITHUB_ORGANIZATION}/k8s-install/${CYBER_DOJO_K8S_INSTALL_VERSION}/sh/deployment_functions.sh > ${INSTALLER_SH_DIR}/deployment_functions.sh
 cp install.sh.resource ${INSTALLER_DIR}/install.sh
 chmod a+x ${INSTALLER_DIR}/install.sh
-echo "Installer copied"
 
 
 # CUSTOM_START_POINTS

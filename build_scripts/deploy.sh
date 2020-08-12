@@ -7,16 +7,16 @@ function deploy_cyberdojo() {
     ls -lrt
     cd ../packager
     ./package.sh
-    echo "Package done"
-    echo "sleeping for 10"
+    echo "Package done, sleep for 10"
     sleep 10
     cd ./installer
     ./install.sh
 }
 
-echo "Inside deploy script"
-echo "deploy cyberdojo service in k3s cluster"
+echo "Deploy cyberdojo service in k3s cluster"
 deploy_cyberdojo
-
+sleep 10
 # Verify installation
+echo "curl to check deployment"
+curl http://127.0.0.1
 

@@ -12,9 +12,6 @@ readonly INSTALLER_DEFAULT_VALUES_DIR=${INSTALLER_DIR}/default-values
 source ${INSTALLER_SH_DIR}/deployment_functions.sh
 source ${INSTALLER_ENV}
 
-echo "helm version"
-helm version
-
 helm repo add praqma https://praqma-helm-repo.s3.amazonaws.com/
 helm repo update
 kubectl create namespace ${NAMESPACE} &> /dev/null && echo namespace "\"${NAMESPACE}\"" created || echo namespace "\"${NAMESPACE}\"" already exists
