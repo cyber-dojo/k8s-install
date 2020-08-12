@@ -18,5 +18,6 @@ deploy_cyberdojo
 sleep 10
 # Verify installation
 echo "curl to check deployment"
+kubectl cluster-info
 curl http://127.0.0.1
 
