@@ -23,6 +23,7 @@ help_upgrade_probe_yes_prometheus_yes.sh
     languages-start-points
     repler
     runner
+    puller
     shas
 
 

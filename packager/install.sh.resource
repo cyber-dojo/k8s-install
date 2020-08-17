@@ -29,7 +29,7 @@ REPO=languages-start-points
 helm_upgrade_probe_yes_prometheus_yes "${NAMESPACE}" "${REPO}" \
    "${CYBER_DOJO_LANGUAGES_START_POINTS_IMAGE}" "${CYBER_DOJO_LANGUAGES_START_POINTS_TAG}" "${CYBER_DOJO_LANGUAGES_START_POINTS_PORT}" \
    "${INSTALLER_DEFAULT_VALUES_DIR}/${REPO}-${REPO_VALUES_YML}"
-   
+
 # EXERCISES_START_POINTS
 REPO=exercises-start-points
 helm_upgrade_probe_yes_prometheus_yes "${NAMESPACE}" "${REPO}" \
@@ -77,6 +77,12 @@ REPO=runner
 helm_upgrade_probe_yes_prometheus_yes "${NAMESPACE}" "${REPO}" \
    "${CYBER_DOJO_RUNNER_IMAGE}" "${CYBER_DOJO_RUNNER_TAG}" "${CYBER_DOJO_RUNNER_PORT}" \
    "${INSTALLER_DEFAULT_VALUES_DIR}/${REPO}-${REPO_VALUES_YML}"
+
+# PULLER
+REPO=puller
+helm_upgrade_probe_yes_prometheus_yes "${NAMESPACE}" "${REPO}" \
+  "${CYBER_DOJO_PULLER_IMAGE}" "${CYBER_DOJO_PULLER_TAG}" "${CYBER_DOJO_PULLER_PORT}" \
+  "${INSTALLER_DEFAULT_VALUES_DIR}/${REPO}-${REPO_VALUES_YML}"
 
 # SAVER
 REPO=saver
