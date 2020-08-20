@@ -16,9 +16,7 @@ help_upgrade_probe_yes_prometheus_yes.sh
     creator
     custom-start-points
     differ
-    exercises-chooser
     exercises-start-points
-    languages-chooser
     languages-start-points
     repler
     runner
