@@ -60,12 +60,6 @@ helm_upgrade_probe_yes_prometheus_yes "${NAMESPACE}" "${REPO}" \
    "${CYBER_DOJO_RUNNER_IMAGE}" "${CYBER_DOJO_RUNNER_TAG}" "${CYBER_DOJO_RUNNER_PORT}" \
    "${INSTALLER_DEFAULT_VALUES_DIR}/${REPO}-${REPO_VALUES_YML}"
 
-# PULLER
-REPO=puller
-helm_upgrade_probe_yes_prometheus_yes "${NAMESPACE}" "${REPO}" \
-  "${CYBER_DOJO_PULLER_IMAGE}" "${CYBER_DOJO_PULLER_TAG}" "${CYBER_DOJO_PULLER_PORT}" \
-  "${INSTALLER_DEFAULT_VALUES_DIR}/${REPO}-${REPO_VALUES_YML}"
-
 # SAVER
 REPO=saver
 helm_upgrade_probe_no_prometheus_yes "${NAMESPACE}" "${REPO}" \

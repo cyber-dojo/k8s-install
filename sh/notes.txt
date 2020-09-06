@@ -18,9 +18,9 @@ help_upgrade_probe_yes_prometheus_yes.sh
     differ
     exercises-start-points
     languages-start-points
+    model
     repler
     runner
-    puller
     shas
 
 
