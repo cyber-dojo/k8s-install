@@ -28,7 +28,7 @@ REPO=languages-start-points
 helm_upgrade_probe_yes_prometheus_yes "${NAMESPACE}" "${REPO}" \
    "${CYBER_DOJO_LANGUAGES_START_POINTS_IMAGE}" "${CYBER_DOJO_LANGUAGES_START_POINTS_TAG}" "${CYBER_DOJO_LANGUAGES_START_POINTS_PORT}" \
    "${INSTALLER_DEFAULT_VALUES_DIR}/${REPO}-${REPO_VALUES_YML}"
-   
+
 # EXERCISES_START_POINTS
 REPO=exercises-start-points
 helm_upgrade_probe_yes_prometheus_yes "${NAMESPACE}" "${REPO}" \
@@ -39,24 +39,6 @@ helm_upgrade_probe_yes_prometheus_yes "${NAMESPACE}" "${REPO}" \
 REPO=creator
 helm_upgrade_probe_yes_prometheus_yes "${NAMESPACE}" "${REPO}" \
    "${CYBER_DOJO_CREATOR_IMAGE}" "${CYBER_DOJO_CREATOR_TAG}" "${CYBER_DOJO_CREATOR_PORT}" \
-   "${INSTALLER_DEFAULT_VALUES_DIR}/${REPO}-${REPO_VALUES_YML}"
-
-# CUSTOM_CHOOSER
-REPO=custom-chooser
-helm_upgrade_probe_yes_prometheus_yes "${NAMESPACE}" "${REPO}" \
-   "${CYBER_DOJO_CUSTOM_CHOOSER_IMAGE}" "${CYBER_DOJO_CUSTOM_CHOOSER_TAG}" "${CYBER_DOJO_CUSTOM_CHOOSER_PORT}" \
-   "${INSTALLER_DEFAULT_VALUES_DIR}/${REPO}-${REPO_VALUES_YML}"
-
-# EXERCISES_CHOOSER
-REPO=exercises-chooser
-helm_upgrade_probe_yes_prometheus_yes "${NAMESPACE}" "${REPO}" \
-   "${CYBER_DOJO_EXERCISES_CHOOSER_IMAGE}" "${CYBER_DOJO_EXERCISES_CHOOSER_TAG}" "${CYBER_DOJO_EXERCISES_CHOOSER_PORT}" \
-   "${INSTALLER_DEFAULT_VALUES_DIR}/${REPO}-${REPO_VALUES_YML}"
-
-# LANGUAGES_CHOOSER
-REPO=languages-chooser
-helm_upgrade_probe_yes_prometheus_yes "${NAMESPACE}" "${REPO}" \
-   "${CYBER_DOJO_LANGUAGES_CHOOSER_IMAGE}" "${CYBER_DOJO_LANGUAGES_CHOOSER_TAG}" "${CYBER_DOJO_LANGUAGES_CHOOSER_PORT}" \
    "${INSTALLER_DEFAULT_VALUES_DIR}/${REPO}-${REPO_VALUES_YML}"
 
 # AVATARS

@@ -14,13 +14,11 @@ helm_upgrade_probe_no_prometheus_no.sh
 help_upgrade_probe_yes_prometheus_yes.sh
     avatars
     creator
-    custom-chooser
     custom-start-points
     differ
-    exercises-chooser
     exercises-start-points
-    languages-chooser
     languages-start-points
+    model
     repler
     runner
     shas
