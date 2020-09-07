@@ -19,5 +19,5 @@ sleep 10
 # Verify installation
 echo "curl to check deployment"
 kubectl cluster-info
-curl http://127.0.0.1:8080
+kubectl get namespaces
 
