@@ -15,7 +15,7 @@ function deploy_cyberdojo() {
 
 echo "Deploy cyberdojo service in k3s cluster"
 deploy_cyberdojo
-sleep 10
+sleep 30
 # Verify installation
 kubectl get deployments -n cyber-dojo
 
