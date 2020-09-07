@@ -5,7 +5,7 @@ ingress:
 ## (recommended for minikube and if there is no registered domain or subdomain)
 ##  uncomment the next block to access cyber-dojo by the ip address:
 
-#  default_enabled: true
+default_enabled: true
 
 ## (recommended for the cloud cluster with certificate manager installed,
 ##  if there is a registered domain or subdomain)

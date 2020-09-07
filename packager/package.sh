@@ -9,6 +9,7 @@ readonly INSTALLER_USER_VALUES_DIR=${INSTALLER_DIR}
 readonly INSTALLER_SH_DIR=${INSTALLER_DIR}/sh
 readonly INSTALLER_DEFAULT_VALUES_DIR=${INSTALLER_DIR}/default-values
 
+echo "Inside Package.sh"
 mkdir  -p ${INSTALLER_DIR}
 rm -rf ${INSTALLER_DIR}/*
 mkdir  -p ${INSTALLER_SH_DIR}

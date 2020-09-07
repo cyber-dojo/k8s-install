@@ -1,21 +1,26 @@
-version: 2
-jobs:
-  build-publish-trigger:
-    machine:
-      enabled: true
-    steps:
-      - checkout
-      - run:
-          name: Build image, test it, tag, publish it
-          command: true
 
-workflows:
-  version: 2
-  build-publish-trigger:
-    jobs:
-      - build-publish-trigger:
-          context: cyberdojo-context
-          filters:
-            branches:
-              only:
-                  - master
+version: 2.1
+jobs:
+  build:
+    machine:
+      image: 'ubuntu-1604:201903-01'
+    environment:
+      HELM_VERSION: v2.16.0
+
+    steps:
+        - checkout
+
+        - run:
+            name: Setup k3s and helm
+            command: |
+              cd build_scripts
+              sudo ./utils.sh ${HELM_VERSION}
+              echo "Install dependancies complete"
+
+        - run:
+            name: Deploy cyberdojo
+            command: |
+              cd build_scripts
+              sudo ./deploy.sh
+              echo "Deploying cyberdojo complete"
+              
