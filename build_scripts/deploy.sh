@@ -17,7 +17,5 @@ echo "Deploy cyberdojo service in k3s cluster"
 deploy_cyberdojo
 sleep 10
 # Verify installation
-echo "curl to check deployment"
-kubectl cluster-info
-kubectl get namespaces
+kubectl get deployments -n cyber-dojo
 
