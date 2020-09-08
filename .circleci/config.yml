@@ -11,15 +11,22 @@ jobs:
         - checkout
 
         - run:
-            name: Setup k3s and helm
+            name: Setup k3s
             command: |
               cd build_scripts
-              sudo ./install_k3s_helm.sh ${HELM_VERSION}
-              echo "Installed k3s and helm"
+              sudo ./install_k3s.sh
+              echo "Installed k3s"
+
+        - run:
+            name: Setup helm
+            command: |
+              cd build_scripts
+              sudo ./install_helm.sh ${HELM_VERSION}
+              echo "Installed helm"
 
         - run:
             name: Deploy cyber-dojo
             command: |
               cd build_scripts
               sudo ./deploy_cyber_dojo.sh
-              echo "Deploying cyber-dojo complete"
+              echo "Deployed cyber-dojo"
