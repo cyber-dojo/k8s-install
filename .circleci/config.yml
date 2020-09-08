@@ -18,8 +18,8 @@ jobs:
               echo "Installed k3s and helm"
 
         - run:
-            name: Deploy cyberdojo
+            name: Deploy cyber-dojo
             command: |
               cd build_scripts
-              sudo ./deploy.sh
-              echo "Deploying cyberdojo complete"
+              sudo ./deploy_cyber_dojo.sh
+              echo "Deploying cyber-dojo complete"
