@@ -1,7 +1,8 @@
-#!/bin/bash
-# Script to deploy cyberdojo in k3s
+#!/bin/bash -Eeu
 
-function deploy_cyberdojo() {
+function deploy_cyber_dojo()
+{
+    echo "Deploy cyber-dojo service in k3s cluster"
     export KUBECONFIG=/etc/rancher/k3s/k3s.yaml
     pwd
     ls -lrt
@@ -13,9 +14,7 @@ function deploy_cyberdojo() {
     ./install.sh
 }
 
-echo "Deploy cyberdojo service in k3s cluster"
-deploy_cyberdojo
+deploy_cyber_dojo
 sleep 50
 # Verify installation
 kubectl get deployments -n cyber-dojo
-
