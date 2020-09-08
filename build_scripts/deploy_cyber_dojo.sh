@@ -7,7 +7,7 @@ function deploy_cyber_dojo()
     pwd
     ls -lrt
     cd ../packager
-    ./package.sh
+    ./package.sh # creates installer/ dir
     echo "Package done, sleep for 10"
     sleep 10
     cd ./installer

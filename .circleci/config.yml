@@ -11,11 +11,18 @@ jobs:
         - checkout
 
         - run:
-            name: Setup k3s and helm
+            name: Setup k3s
             command: |
               cd build_scripts
-              sudo ./utils.sh ${HELM_VERSION}
-              echo "Install dependancies complete"
+              sudo ./install_k3s.sh
+              echo "Installed k3s"
+
+        - run:
+            name: Setup Helm
+            command: |
+              cd build_scripts
+              sudo ./install_helm.sh ${HELM_VERSION}
+              echo "Installed Helm"
 
         - run:
             name: Deploy cyberdojo
@@ -23,4 +30,3 @@ jobs:
               cd build_scripts
               sudo ./deploy.sh
               echo "Deploying cyberdojo complete"
-              
