@@ -14,7 +14,7 @@ jobs:
             name: Setup k3s and helm
             command: |
               cd build_scripts
-              sudo ./install_k3s_helm.sh
+              sudo ./install_k3s_helm.sh ${HELM_VERSION}
               echo "Installed k3s and helm"
 
         - run:
