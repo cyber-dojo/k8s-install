@@ -41,12 +41,6 @@ helm_upgrade_probe_yes_prometheus_yes "${NAMESPACE}" "${REPO}" \
    "${CYBER_DOJO_CREATOR_IMAGE}" "${CYBER_DOJO_CREATOR_TAG}" "${CYBER_DOJO_CREATOR_PORT}" \
    "${INSTALLER_DEFAULT_VALUES_DIR}/${REPO}-${REPO_VALUES_YML}"
 
-# AVATARS
-REPO=avatars
-helm_upgrade_probe_yes_prometheus_yes "${NAMESPACE}" "${REPO}" \
-   "${CYBER_DOJO_AVATARS_IMAGE}" "${CYBER_DOJO_AVATARS_TAG}" "${CYBER_DOJO_AVATARS_PORT}" \
-   "${INSTALLER_DEFAULT_VALUES_DIR}/${REPO}-${REPO_VALUES_YML}"
-
 # DIFFER
 REPO=differ
 helm_upgrade_probe_yes_prometheus_yes "${NAMESPACE}" "${REPO}" \
