@@ -14,13 +14,12 @@ jobs:
             name: Setup k3s and helm
             command: |
               cd build_scripts
-              sudo ./utils.sh ${HELM_VERSION}
-              echo "Install dependancies complete"
+              sudo ./install_k3s_helm.sh ${HELM_VERSION}
+              echo "Installed k3s and helm"
 
         - run:
-            name: Deploy cyberdojo
+            name: Deploy cyber-dojo
             command: |
               cd build_scripts
-              sudo ./deploy.sh
-              echo "Deploying cyberdojo complete"
-              
+              sudo ./deploy_cyber_dojo.sh
+              echo "Deployed cyber-dojo"

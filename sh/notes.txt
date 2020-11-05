@@ -1,15 +1,17 @@
 
-There are currently 3 slightly different versions of the helm_upgrade....() bash function.
+There are currently 4 slightly different versions of the helm_upgrade....() bash function.
 Here are their names and which services use them.
-In time these should be reified into one version.
+In time, if these could be reified into one version it would be good.
 
+
+helm_upgrade_probe_no_prometheus_no.sh
+    nginx
 
 helm_upgrade_probe_no_prometheus_yes.sh
     saver
 
-helm_upgrade_probe_no_prometheus_no.sh
+helm_upgrade_probe_yes_prometheus_no.sh
     web
-    nginx
 
 help_upgrade_probe_yes_prometheus_yes.sh
     avatars
@@ -24,5 +26,5 @@ help_upgrade_probe_yes_prometheus_yes.sh
     shas
 
 
-curled by service CI scripts and by
+These bash scripts are curled by service CI scripts and by
 https://github.com/dpolivaev/cyber-dojo-k8s-install/blob/master/install.sh
