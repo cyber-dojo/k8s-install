@@ -17,6 +17,6 @@ echo "Deploy cyberdojo service in k3s cluster"
 deploy_cyberdojo
 sleep 50
 echo "Verify installation"
-kubectl wait --for=condition=Ready --timeout=60s pods --all -n cyber-dojo
+kubectl wait --for=condition=Ready --timeout=100s pods --all -n cyber-dojo
 echo "List pods"
 kubectl get pods -n cyber-dojo
