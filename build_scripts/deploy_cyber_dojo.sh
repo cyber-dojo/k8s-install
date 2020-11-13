@@ -15,6 +15,7 @@ function deploy_cyber_dojo()
 }
 
 deploy_cyber_dojo
-sleep 50
-# Verify installation
+sleep 60
+kubectl get deployments -n cyber-dojo
+sleep 60
 kubectl get deployments -n cyber-dojo
