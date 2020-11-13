@@ -16,6 +16,12 @@ helm repo add praqma https://praqma-helm-repo.s3.amazonaws.com/
 helm repo update
 kubectl create namespace ${NAMESPACE} &> /dev/null && echo namespace "\"${NAMESPACE}\"" created || echo namespace "\"${NAMESPACE}\"" already exists
 
+# MODEL
+REPO=model
+helm_upgrade_probe_yes_prometheus_yes "${NAMESPACE}" "${REPO}" \
+   "${CYBER_DOJO_MODEL_IMAGE}" "${CYBER_DOJO_MODEL_TAG}" "${CYBER_DOJO_MODEL_PORT}" \
+   "${INSTALLER_DEFAULT_VALUES_DIR}/${REPO}-${REPO_VALUES_YML}"
+
 # CUSTOM_START_POINTS
 REPO=custom-start-points
 helm_upgrade_probe_yes_prometheus_yes "${NAMESPACE}" "${REPO}" \
