@@ -108,9 +108,7 @@ SHA="${CYBER_DOJO_SAVER_SHA}"
 
 curl ${GITHUB_RAW_CONTENT}/${GITHUB_ORGANIZATION}/${REPO}/${SHA}/.circleci/${REPO_VALUES_YML} \
   > ${INSTALLER_DEFAULT_VALUES_DIR}/${REPO}-${REPO_VALUES_YML}
-
-curl ${GITHUB_RAW_CONTENT}/${GITHUB_ORGANIZATION}/${REPO}/${SHA}/.circleci/${ENV_VAR_VALUES_YML} \
-  >> ${INSTALLER_DEFAULT_VALUES_DIR}/${REPO}-${REPO_VALUES_YML}
+# Don't append env-var-values.yml for saver (it's CI pipe is currently broken)
 
 cat saver-security.yml.resource >> ${INSTALLER_DEFAULT_VALUES_DIR}/${REPO}-${REPO_VALUES_YML}
 cp saver-pvc.yml.resource ${INSTALLER_USER_VALUES_DIR}/saver-pvc.yml
@@ -152,8 +150,6 @@ SHA="${CYBER_DOJO_NGINX_SHA}"
 
 curl ${GITHUB_RAW_CONTENT}/${GITHUB_ORGANIZATION}/${REPO}/${SHA}/.circleci/${REPO_VALUES_YML} \
   > ${INSTALLER_DEFAULT_VALUES_DIR}/${REPO}-${REPO_VALUES_YML}
-
-curl ${GITHUB_RAW_CONTENT}/${GITHUB_ORGANIZATION}/${REPO}/${SHA}/.circleci/${ENV_VAR_VALUES_YML} \
-  >> ${INSTALLER_DEFAULT_VALUES_DIR}/${REPO}-${REPO_VALUES_YML}
+# Don't append env-var-values.yml for nginx (not needed)
 
 cp nginx-ingress.yml.resource ${INSTALLER_USER_VALUES_DIR}/nginx-ingress.yml
