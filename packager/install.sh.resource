@@ -79,7 +79,7 @@ helm_upgrade_probe_yes_prometheus_yes "${NAMESPACE}" "${REPO}" \
 
 # WEB
 REPO=web
-helm_upgrade_probe_no_prometheus_no "${NAMESPACE}" "${REPO}" \
+helm_upgrade_probe_yes_prometheus_no "${NAMESPACE}" "${REPO}" \
    "${CYBER_DOJO_WEB_IMAGE}" "${CYBER_DOJO_WEB_TAG}" "${CYBER_DOJO_WEB_PORT}" \
    "${INSTALLER_DEFAULT_VALUES_DIR}/${REPO}-${REPO_VALUES_YML}"
 
