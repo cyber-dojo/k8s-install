@@ -47,6 +47,12 @@ helm_upgrade_probe_yes_prometheus_yes "${NAMESPACE}" "${REPO}" \
    "${CYBER_DOJO_CREATOR_IMAGE}" "${CYBER_DOJO_CREATOR_TAG}" "${CYBER_DOJO_CREATOR_PORT}" \
    "${INSTALLER_DEFAULT_VALUES_DIR}/${REPO}-${REPO_VALUES_YML}"
 
+# DASHBOARD
+REPO=dashboard
+helm_upgrade_probe_yes_prometheus_yes "${NAMESPACE}" "${REPO}" \
+  "${CYBER_DOJO_DASHBOARD_IMAGE}" "${CYBER_DOJO_DASHBOARD_TAG}" "${CYBER_DOJO_DASHBOARD_PORT}" \
+  "${INSTALLER_DEFAULT_VALUES_DIR}/${REPO}-${REPO_VALUES_YML}"
+
 # DIFFER
 REPO=differ
 helm_upgrade_probe_yes_prometheus_yes "${NAMESPACE}" "${REPO}" \
