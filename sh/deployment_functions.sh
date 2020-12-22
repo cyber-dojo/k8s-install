@@ -5,13 +5,16 @@ HELM_CHART_VERSION=0.2.7
 #- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 gcloud_init()
 {
+  echo 'gcloud_init'
   # vars are in ci context
   echo ${GCP_K8S_CREDENTIALS} > /gcp/gcp-credentials.json
 
+  echo 'gcloud auth activate-service-account'
   gcloud auth activate-service-account \
     "${SERVICE_ACCOUNT}" \
     --key-file=/gcp/gcp-credentials.json
 
+  echo 'gcloud container clusters get-credentials'
   gcloud container clusters get-credentials \
     "${CLUSTER}" \
     --zone "${ZONE}" \
@@ -21,7 +24,9 @@ gcloud_init()
 #- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 helm_init()
 {
+  echo 'helm_init'
   helm init --client-only --service-account tiller
+  echo 'helm repo add ...'
   helm repo add praqma https://praqma-helm-repo.s3.amazonaws.com/
 }
 
