@@ -25,9 +25,9 @@ gcloud_init()
 helm_init()
 {
   echo 'helm_init'
-  # Quick fix pending helm v2->v3 Migration scheduled after Xmas...
-  #helm init --client-only --stable-repo-url https://charts.bitnami.com/bitnami --service-account tiller
-  helm --client-only --stable-repo-url https://charts.bitnami.com/bitnami --service-account tiller
+  # Helm has been upgraded to 3.3.1 and this is currently broken
+  # It says init is no longer required....
+  helm init --client-only --stable-repo-url https://charts.bitnami.com/bitnami --service-account tiller
 
 
   echo 'helm repo add ...'
