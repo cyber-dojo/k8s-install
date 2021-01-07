@@ -26,7 +26,9 @@ helm_init()
 {
   echo 'helm_init'
   # Quick fix pending helm v2->v3 Migration scheduled after Xmas...
-  helm init --client-only --stable-repo-url https://charts.bitnami.com/bitnami --service-account tiller
+  #helm init --client-only --stable-repo-url https://charts.bitnami.com/bitnami --service-account tiller
+  helm --client-only --stable-repo-url https://charts.bitnami.com/bitnami --service-account tiller
+
 
   echo 'helm repo add ...'
   helm repo add praqma https://praqma-helm-repo.s3.amazonaws.com/
