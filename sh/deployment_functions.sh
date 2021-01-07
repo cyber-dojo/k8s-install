@@ -7,12 +7,12 @@ gcloud_init()
 {
   echo 'gcloud_init'
   # vars are in ci context
-  echo ${GCP_K8S_CREDENTIALS} > /gcp/gcp-credentials.json
+  echo ${GCP_K8S_CREDENTIALS} > /tmp/gcp-credentials.json
 
   echo 'gcloud auth activate-service-account'
   gcloud auth activate-service-account \
     "${SERVICE_ACCOUNT}" \
-    --key-file=/gcp/gcp-credentials.json
+    --key-file=/tmp/gcp-credentials.json
 
   echo 'gcloud container clusters get-credentials'
   gcloud container clusters get-credentials \
