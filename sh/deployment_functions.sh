@@ -24,12 +24,6 @@ gcloud_init()
 #- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 helm_init()
 {
-  echo 'helm_init'
-  # Helm has been upgraded to 3.3.1 and this is currently broken
-  # It says init is no longer required....
-  helm init --client-only --stable-repo-url https://charts.bitnami.com/bitnami --service-account tiller
-
-
   echo 'helm repo add ...'
   helm repo add praqma https://praqma-helm-repo.s3.amazonaws.com/
 }

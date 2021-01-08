@@ -3,7 +3,7 @@ NAMESPACE="${1:-prod}"
 
 function nodes()
 {
-   echo "Inside nodes"
+  echo "Inside nodes"
   kubectl get nodes | tail -n +2 | cut -d' ' -f1
 }
 

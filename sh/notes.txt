@@ -1,7 +1,7 @@
 
 There are currently 4 slightly different versions of the helm_upgrade....() bash function.
 Here are their names and which services use them.
-In time, if these could be reified into one version it would be good.
+In time, it would be good if these collapse to just one.
 
 
 helm_upgrade_probe_no_prometheus_no.sh
