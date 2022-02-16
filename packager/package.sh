@@ -29,12 +29,6 @@ curl ${GITHUB_RAW_CONTENT}/${GITHUB_ORGANIZATION}/k8s-install/${CYBER_DOJO_K8S_I
 cp install.sh.resource ${INSTALLER_DIR}/install.sh
 chmod a+x ${INSTALLER_DIR}/install.sh
 
-# MODEL
-REPO=model
-SHA="${CYBER_DOJO_MODEL_SHA}"
-
-curl ${GITHUB_RAW_CONTENT}/${GITHUB_ORGANIZATION}/${REPO}/${SHA}/.circleci/${REPO_VALUES_YML} \
-  > ${INSTALLER_DEFAULT_VALUES_DIR}/${REPO}-${REPO_VALUES_YML}
 
 # CUSTOM_START_POINTS
 REPO=custom-start-points
