@@ -61,7 +61,7 @@ helm_upgrade_probe_yes_prometheus_yes "${NAMESPACE}" "${REPO}" \
 
 # SAVER
 REPO=saver
-helm_upgrade_probe_no_prometheus_yes "${NAMESPACE}" "${REPO}" \
+helm_upgrade_probe_yes_prometheus_yes "${NAMESPACE}" "${REPO}" \
    "${CYBER_DOJO_SAVER_IMAGE}" "${CYBER_DOJO_SAVER_TAG}" "${CYBER_DOJO_SAVER_PORT}" \
    "${INSTALLER_DEFAULT_VALUES_DIR}/${REPO}-${REPO_VALUES_YML}" "${INSTALLER_USER_VALUES_DIR}/saver-pvc.yml"
 
