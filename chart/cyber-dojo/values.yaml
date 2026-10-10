@@ -1,0 +1,135 @@
+# Settings for a cyber-dojo server on Kubernetes.
+#
+# Image names, digests and ports are not set here. They are read from
+# versionerEnv, the app/.env of one cyber-dojo/versioner release, which
+# bin/up.sh passes in with --set-file.
+# To run a different image for one service, set its image: below, eg
+#   services.web.image: cyberdojo/web:2390863
+versionerEnv: ""
+
+# The cluster's DNS suffix. nginx's resolver does not use resolv.conf search
+# domains, so every peer hostname is a fully qualified service name.
+clusterDomain: cluster.local
+
+# The DNS server nginx resolves peer names with. Its address is itself a name,
+# which nginx resolves once at startup through resolv.conf.
+dnsResolver: kube-dns.kube-system.svc.cluster.local
+
+# Each key is a service name, which is also its Kubernetes Service name and
+# hostname. envPrefix names its CYBER_DOJO_<envPrefix>_* entries in versionerEnv.
+# probePath, when set, is the path the readiness probe requests in place of
+# /ready. web, creator and dashboard answer /ready only when every peer they
+# call is ready too, so one slow peer would take them out of their Service.
+# Their readiness probe requests their alive path, which checks only themselves.
+# tmpSize matches commander's docker-compose tmpfs sizes.
+# memory matches the mem_limit of each service's ECS task in production.
+services:
+  nginx:
+    envPrefix: NGINX
+    replicas: 1
+    readOnlyRootFilesystem: false
+    tmpSize: ""
+    memory: 512Mi
+  web:
+    envPrefix: WEB
+    probePath: /alive
+    replicas: 1
+    readOnlyRootFilesystem: false
+    tmpSize: ""
+    memory: 1024Mi
+  creator:
+    envPrefix: CREATOR
+    probePath: /creator/alive
+    replicas: 1
+    readOnlyRootFilesystem: true
+    tmpSize: 10Mi
+    memory: 512Mi
+  dashboard:
+    envPrefix: DASHBOARD
+    probePath: /dashboard/alive
+    replicas: 1
+    readOnlyRootFilesystem: true
+    tmpSize: 10Mi
+    memory: 256Mi
+  differ:
+    envPrefix: DIFFER
+    replicas: 1
+    readOnlyRootFilesystem: true
+    tmpSize: 50Mi
+    memory: 256Mi
+  custom-start-points:
+    envPrefix: CUSTOM_START_POINTS
+    replicas: 1
+    readOnlyRootFilesystem: true
+    tmpSize: 10Mi
+    memory: 512Mi
+  exercises-start-points:
+    envPrefix: EXERCISES_START_POINTS
+    replicas: 1
+    readOnlyRootFilesystem: true
+    tmpSize: 10Mi
+    memory: 128Mi
+  languages-start-points:
+    envPrefix: LANGUAGES_START_POINTS
+    replicas: 1
+    readOnlyRootFilesystem: true
+    tmpSize: 10Mi
+    memory: 128Mi
+
+# saver and spooler each own one volume and must be the only writer to it,
+# so each is a single-replica StatefulSet. uid/gid are the users their
+# Dockerfiles create (gid 65533 is Alpine's nogroup).
+saver:
+  envPrefix: SAVER
+  dataPath: /cyber-dojo
+  storage: 25Gi
+  storageClassName: ""
+  tmpSize: 100Mi
+  memory: 256Mi
+  uid: 19663
+  gid: 65533
+
+spooler:
+  envPrefix: SPOOLER
+  dataPath: /sqlite
+  storage: 1Gi
+  storageClassName: ""
+  tmpSize: 10Mi
+  memory: 256Mi
+  uid: 19664
+  gid: 65533
+
+runner:
+  envPrefix: RUNNER
+  replicas: 1
+  tmpSize: 50Mi
+  memory: 768Mi
+  # How many pre-started containers each runner pod holds, so a test run does
+  # not wait for its container to start. Each spare costs up to about 12MB.
+  sparesPerNode: 0
+  # Where the Docker daemon the runner drives comes from:
+  #   dind       - a privileged docker:dind sidecar in each runner pod.
+  #                Works on any cluster that admits privileged pods.
+  #   hostSocket - the node's /var/run/docker.sock. Only for nodes that run
+  #                a Docker Engine, which Kubernetes 1.24+ nodes do not by default.
+  docker: dind
+  dind:
+    image: docker:28.5.1-dind
+    # Holds the images the daemon pulls. An emptyDir keeps them across
+    # container restarts but not across pod restarts.
+    storage: 20Gi
+
+ingress:
+  enabled: true
+  className: ""
+  annotations: {}
+  # eg
+  #   cert-manager.io/cluster-issuer: letsencrypt-production
+  host: ""
+  tls:
+    enabled: false
+    secretName: cyber-dojo-tls
+
+# Requests reaching nginx through the ingress come from this range, which is
+# the cluster's pod network. nginx trusts X-Forwarded-For only from it.
+trustedProxyCidr: 10.0.0.0/8

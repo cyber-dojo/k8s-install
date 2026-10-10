@@ -1,0 +1,85 @@
+{{- /*
+One Deployment and one Service per entry in .Values.services.
+These services keep no state, so they can run any number of replicas.
+*/ -}}
+{{- range $name, $svc := .Values.services }}
+{{- $ctx := dict "root" $ "name" $name }}
+{{- $port := include "cyber-dojo.port" (dict "root" $ "envPrefix" $svc.envPrefix) }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ $name }}
+  labels:
+    {{- include "cyber-dojo.labels" $ctx | nindent 4 }}
+spec:
+  selector:
+    {{- include "cyber-dojo.selectorLabels" $ctx | nindent 4 }}
+  ports:
+    - name: http
+      port: {{ $port }}
+      targetPort: {{ $port }}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ $name }}
+  labels:
+    {{- include "cyber-dojo.labels" $ctx | nindent 4 }}
+spec:
+  replicas: {{ $svc.replicas }}
+  selector:
+    matchLabels:
+      {{- include "cyber-dojo.selectorLabels" $ctx | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "cyber-dojo.selectorLabels" $ctx | nindent 8 }}
+      annotations:
+        checksum/env: {{ include (print $.Template.BasePath "/configmap.yaml") $ | sha256sum }}
+    spec:
+      # Kubernetes would add <SERVICE>_PORT=tcp://... for every Service, and
+      # some of those names are ones the services read for themselves.
+      enableServiceLinks: false
+      containers:
+        - name: {{ $name }}
+          image: {{ include "cyber-dojo.image" (dict "root" $ "envPrefix" $svc.envPrefix "image" $svc.image) }}
+          envFrom:
+            - configMapRef:
+                name: cyber-dojo-env
+          ports:
+            - name: http
+              containerPort: {{ $port }}
+          securityContext:
+            readOnlyRootFilesystem: {{ $svc.readOnlyRootFilesystem }}
+            allowPrivilegeEscalation: false
+          resources:
+            limits:
+              memory: {{ $svc.memory }}
+          {{- if eq $name "nginx" }}
+          readinessProbe:
+            tcpSocket:
+              port: http
+          {{- else }}
+          readinessProbe:
+            httpGet:
+              path: {{ $svc.probePath | default "/ready" }}
+              port: http
+            periodSeconds: 5
+          {{- end }}
+          livenessProbe:
+            tcpSocket:
+              port: http
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          {{- if $svc.tmpSize }}
+          volumeMounts:
+            - name: tmp
+              mountPath: /tmp
+      volumes:
+        - name: tmp
+          emptyDir:
+            medium: Memory
+            sizeLimit: {{ $svc.tmpSize }}
+          {{- end }}
+{{- end }}

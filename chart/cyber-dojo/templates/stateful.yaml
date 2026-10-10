@@ -1,0 +1,95 @@
+{{- /*
+saver and spooler: one replica each, owning one PersistentVolumeClaim.
+A second replica would be a second writer to the same katas or sqlite file.
+*/ -}}
+{{- range $name := list "saver" "spooler" }}
+{{- $svc := get $.Values $name }}
+{{- $ctx := dict "root" $ "name" $name }}
+{{- $port := include "cyber-dojo.port" (dict "root" $ "envPrefix" $svc.envPrefix) }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ $name }}
+  labels:
+    {{- include "cyber-dojo.labels" $ctx | nindent 4 }}
+spec:
+  selector:
+    {{- include "cyber-dojo.selectorLabels" $ctx | nindent 4 }}
+  ports:
+    - name: http
+      port: {{ $port }}
+      targetPort: {{ $port }}
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ $name }}
+  labels:
+    {{- include "cyber-dojo.labels" $ctx | nindent 4 }}
+spec:
+  serviceName: {{ $name }}
+  replicas: 1
+  selector:
+    matchLabels:
+      {{- include "cyber-dojo.selectorLabels" $ctx | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "cyber-dojo.selectorLabels" $ctx | nindent 8 }}
+      annotations:
+        checksum/env: {{ include (print $.Template.BasePath "/configmap.yaml") $ | sha256sum }}
+    spec:
+      enableServiceLinks: false
+      # The uid/gid the image's Dockerfile creates, so the volume is writable.
+      securityContext:
+        runAsUser: {{ $svc.uid }}
+        runAsGroup: {{ $svc.gid }}
+        fsGroup: {{ $svc.gid }}
+      containers:
+        - name: {{ $name }}
+          image: {{ include "cyber-dojo.image" (dict "root" $ "envPrefix" $svc.envPrefix "image" $svc.image) }}
+          envFrom:
+            - configMapRef:
+                name: cyber-dojo-env
+          ports:
+            - name: http
+              containerPort: {{ $port }}
+          securityContext:
+            readOnlyRootFilesystem: true
+            allowPrivilegeEscalation: false
+          resources:
+            limits:
+              memory: {{ $svc.memory }}
+          readinessProbe:
+            httpGet:
+              path: /ready
+              port: http
+            periodSeconds: 5
+          livenessProbe:
+            tcpSocket:
+              port: http
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          volumeMounts:
+            - name: data
+              mountPath: {{ $svc.dataPath }}
+            - name: tmp
+              mountPath: /tmp
+      volumes:
+        - name: tmp
+          emptyDir:
+            medium: Memory
+            sizeLimit: {{ $svc.tmpSize }}
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+      spec:
+        accessModes: [ReadWriteOnce]
+        {{- if $svc.storageClassName }}
+        storageClassName: {{ $svc.storageClassName }}
+        {{- end }}
+        resources:
+          requests:
+            storage: {{ $svc.storage }}
+{{- end }}
