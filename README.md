@@ -150,7 +150,7 @@ nginx admits one kata creation a minute from one address, so allow a minute
 between runs.
 
 CI (`.github/workflows/main.yml`) runs `bin/up.sh` and this test in a fresh
-kind cluster on every pull request and push to master, and weekly against
+kind cluster on every pull request and push to main, and weekly against
 the newest release.
 
 ## Uninstall
