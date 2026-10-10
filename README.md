@@ -58,7 +58,7 @@ Either of these gives you a one-node cluster in Docker. Both need Docker,
 kubectl and helm, and reach cyber-dojo through `kubectl port-forward`, so no
 ingress controller or DNS is involved.
 
-### With minikube
+### With [minikube](https://minikube.sigs.k8s.io/)
 
 ```bash
 minikube start --memory=6g
@@ -68,7 +68,7 @@ kubectl -n cyber-dojo port-forward svc/nginx 8090:80
 
 Browse to http://localhost:8090. Remove it all with `minikube delete`.
 
-### With k3s
+### With [k3s](https://k3s.io/)
 
 k3s runs in one privileged container. Its kubeconfig goes in a file of its
 own, so your `~/.kube/config` is untouched.
