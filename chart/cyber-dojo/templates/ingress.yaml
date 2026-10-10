@@ -1,0 +1,38 @@
+{{- if .Values.ingress.enabled }}
+{{- $ctx := dict "root" $ "name" "nginx" }}
+{{- $port := include "cyber-dojo.port" (dict "root" $ "envPrefix" .Values.services.nginx.envPrefix) }}
+# Every request goes to nginx, which routes it on to web, creator, dashboard
+# or saver, as it does under commander.
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: cyber-dojo
+  labels:
+    {{- include "cyber-dojo.labels" $ctx | nindent 4 }}
+  {{- with .Values.ingress.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  {{- with .Values.ingress.className }}
+  ingressClassName: {{ . }}
+  {{- end }}
+  {{- if .Values.ingress.tls.enabled }}
+  tls:
+    - hosts: [{{ required "ingress.host is needed for TLS" .Values.ingress.host | quote }}]
+      secretName: {{ .Values.ingress.tls.secretName }}
+  {{- end }}
+  rules:
+    - {{- with .Values.ingress.host }}
+      host: {{ . | quote }}
+      {{- end }}
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: nginx
+                port:
+                  number: {{ $port }}
+{{- end }}

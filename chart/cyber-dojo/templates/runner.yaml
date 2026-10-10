@@ -1,0 +1,129 @@
+{{- $svc := .Values.runner }}
+{{- $ctx := dict "root" $ "name" "runner" }}
+{{- $port := include "cyber-dojo.port" (dict "root" $ "envPrefix" $svc.envPrefix) }}
+{{- $dind := eq $svc.docker "dind" }}
+{{- if not (has $svc.docker (list "dind" "hostSocket")) }}
+{{- fail (printf "runner.docker must be dind or hostSocket, not %q" $svc.docker) }}
+{{- end }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: runner
+  labels:
+    {{- include "cyber-dojo.labels" $ctx | nindent 4 }}
+spec:
+  selector:
+    {{- include "cyber-dojo.selectorLabels" $ctx | nindent 4 }}
+  ports:
+    - name: http
+      port: {{ $port }}
+      targetPort: {{ $port }}
+---
+# The runner drives a Docker Engine through /var/run/docker.sock, starting one
+# container per test run, and holds its spares on that same daemon.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: runner
+  labels:
+    {{- include "cyber-dojo.labels" $ctx | nindent 4 }}
+spec:
+  replicas: {{ $svc.replicas }}
+  selector:
+    matchLabels:
+      {{- include "cyber-dojo.selectorLabels" $ctx | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "cyber-dojo.selectorLabels" $ctx | nindent 8 }}
+      annotations:
+        checksum/env: {{ include (print $.Template.BasePath "/configmap.yaml") $ | sha256sum }}
+    spec:
+      enableServiceLinks: false
+      {{- if $dind }}
+      initContainers:
+        # A native sidecar: it starts first, its startupProbe holds the runner
+        # back until the daemon answers, and it runs for the pod's lifetime.
+        - name: dockerd
+          image: {{ $svc.dind.image }}
+          restartPolicy: Always
+          # A first arg of dockerd stops the entrypoint adding its default
+          # --host=tcp://0.0.0.0:2375, which would open the daemon to the cluster.
+          args: [dockerd, --host=unix:///var/run/docker.sock]
+          env:
+            - name: DOCKER_TLS_CERTDIR
+              value: ""
+          securityContext:
+            privileged: true
+          startupProbe:
+            exec:
+              command: [docker, info]
+            periodSeconds: 2
+            failureThreshold: 60
+          volumeMounts:
+            - name: docker-run
+              mountPath: /var/run
+            - name: docker-lib
+              mountPath: /var/lib/docker
+      {{- end }}
+      containers:
+        - name: runner
+          image: {{ include "cyber-dojo.image" (dict "root" $ "envPrefix" $svc.envPrefix "image" $svc.image) }}
+          envFrom:
+            - configMapRef:
+                name: cyber-dojo-env
+          ports:
+            - name: http
+              containerPort: {{ $port }}
+          # root, as under commander, to open the Docker socket.
+          securityContext:
+            runAsUser: 0
+            readOnlyRootFilesystem: true
+            allowPrivilegeEscalation: false
+          resources:
+            limits:
+              memory: {{ $svc.memory }}
+          readinessProbe:
+            httpGet:
+              path: /ready
+              port: http
+            periodSeconds: 5
+          livenessProbe:
+            tcpSocket:
+              port: http
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          volumeMounts:
+            - name: tmp
+              mountPath: /tmp
+            # Spares outlive a runner container restart, as the daemon holding
+            # them does. On ECS this is the host's /dev/shm.
+            - name: spares
+              mountPath: /tmp/cyber_dojo_spares
+            {{- if $dind }}
+            - name: docker-run
+              mountPath: /var/run
+            {{- else }}
+            - name: docker-socket
+              mountPath: /var/run/docker.sock
+            {{- end }}
+      volumes:
+        - name: tmp
+          emptyDir:
+            medium: Memory
+            sizeLimit: {{ $svc.tmpSize }}
+        - name: spares
+          emptyDir:
+            medium: Memory
+        {{- if $dind }}
+        - name: docker-run
+          emptyDir: {}
+        - name: docker-lib
+          emptyDir:
+            sizeLimit: {{ $svc.dind.storage }}
+        {{- else }}
+        - name: docker-socket
+          hostPath:
+            path: /var/run/docker.sock
+            type: Socket
+        {{- end }}

@@ -1,0 +1,43 @@
+name: Main
+
+# Installs the newest cyber-dojo release into a fresh kind cluster with
+# bin/up.sh, then checks it end to end with bin/test_traffic_light_saved.sh.
+# The weekly run catches a versioner release that no longer installs.
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 6 * * 1'
+
+jobs:
+  up-and-test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 1
+
+      - uses: azure/setup-helm@v5
+
+      - uses: helm/kind-action@v1
+        with:
+          cluster_name: cyber-dojo
+
+      - name: Install the newest release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: bin/up.sh --wait --timeout 15m
+
+      - name: Create a kata and run its tests
+        run: bin/test_traffic_light_saved.sh
+
+      - name: Show cluster state
+        if: failure()
+        run: |
+          kubectl get pods,pvc --namespace cyber-dojo --output wide
+          kubectl describe pods --namespace cyber-dojo
+          kubectl logs --namespace cyber-dojo --all-containers --prefix --tail=50 \
+            --selector app.kubernetes.io/instance=cyber-dojo

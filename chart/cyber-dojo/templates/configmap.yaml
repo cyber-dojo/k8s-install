@@ -1,0 +1,28 @@
+{{- $v := fromYaml (include "cyber-dojo.versioner" .) -}}
+{{- $names := list "nginx" "web" "runner" "saver" "spooler" -}}
+{{- $names = concat $names (keys .Values.services | sortAlpha) | uniq -}}
+# Every pod gets this as its environment, as every container gets the one
+# .env file under commander's docker-compose.
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cyber-dojo-env
+  labels:
+    app.kubernetes.io/part-of: cyber-dojo
+data:
+  # Every service's port, from versionerEnv.
+  {{- range $key := keys $v | sortAlpha }}
+  {{- if hasSuffix "_PORT" $key }}
+  {{ $key }}: {{ get $v $key | quote }}
+  {{- end }}
+  {{- end }}
+  # Every service's hostname. Its Kubernetes Service has the same name.
+  {{- range $name := $names }}
+  CYBER_DOJO_{{ $name | upper | replace "-" "_" }}_HOSTNAME: {{ include "cyber-dojo.fqdn" (dict "root" $ "name" $name) | quote }}
+  {{- end }}
+  # nginx reads its k8s defaults (template-port-env-subst.sh) when this is set.
+  # The values below override the ones in that file it would get wrong here.
+  CYBER_DOJO_K8S_PORT: "true"
+  NGINX_RESOLVER_IP: {{ .Values.dnsResolver | quote }}
+  CYBER_DOJO_TRUSTED_PROXY_CIDR: {{ .Values.trustedProxyCidr | quote }}
+  CYBER_DOJO_RUNNER_SPARES_PER_NODE: {{ .Values.runner.sparesPerNode | quote }}
