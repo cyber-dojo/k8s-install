@@ -17,8 +17,10 @@ dnsResolver: kube-dns.kube-system.svc.cluster.local
 
 # Each key is a service name, which is also its Kubernetes Service name and
 # hostname. envPrefix names its CYBER_DOJO_<envPrefix>_* entries in versionerEnv.
-# readyPath, when set, is the path the image's own HEALTHCHECK requests in
-# place of /ready.
+# probePath, when set, is the path the readiness probe requests in place of
+# /ready. web, creator and dashboard answer /ready only when every peer they
+# call is ready too, so one slow peer would take them out of their Service.
+# Their readiness probe requests their alive path, which checks only themselves.
 # tmpSize matches commander's docker-compose tmpfs sizes.
 # memory matches the mem_limit of each service's ECS task in production.
 services:
@@ -30,20 +32,21 @@ services:
     memory: 512Mi
   web:
     envPrefix: WEB
+    probePath: /alive
     replicas: 1
     readOnlyRootFilesystem: false
     tmpSize: ""
     memory: 1024Mi
   creator:
     envPrefix: CREATOR
-    readyPath: /creator/ready
+    probePath: /creator/alive
     replicas: 1
     readOnlyRootFilesystem: true
     tmpSize: 10Mi
     memory: 512Mi
   dashboard:
     envPrefix: DASHBOARD
-    readyPath: /dashboard/ready
+    probePath: /dashboard/alive
     replicas: 1
     readOnlyRootFilesystem: true
     tmpSize: 10Mi

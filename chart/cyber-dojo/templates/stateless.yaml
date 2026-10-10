@@ -61,10 +61,9 @@ spec:
             tcpSocket:
               port: http
           {{- else }}
-          # The path each image's own HEALTHCHECK requests.
           readinessProbe:
             httpGet:
-              path: {{ $svc.readyPath | default "/ready" }}
+              path: {{ $svc.probePath | default "/ready" }}
               port: http
             periodSeconds: 5
           {{- end }}
